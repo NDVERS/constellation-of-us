@@ -1,0 +1,26 @@
+{
+  "name": "Constellation of Us — Jejak Rasi Kenangan",
+  "short_name": "Constellation",
+  "description": "Peta interaktif arsip jejak cerita petualangan dan momen hangout seru kita di Bandung & Cimahi.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0b0f19",
+  "theme_color": "#0b0f19",
+  "categories": ["lifestyle", "travel", "entertainment"],
+  "icons": [
+    {
+      "src": "assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/images/og-preview.jpg",
+      "sizes": "1200x630",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ]
+}

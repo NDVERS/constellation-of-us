@@ -1,0 +1,249 @@
+[
+  {
+    "id": "memory-paskal-cgv",
+    "order": 1,
+    "title": "Nonton Spider-Man di 23 Paskal",
+    "category": "Weekend Hangout",
+    "date": "17 Agu 2026",
+    "time": "13:00 - 17:30 WIB",
+    "location": "CGV 23 Paskal Shopping Center, Bandung",
+    "coords": [-6.9157, 107.5957],
+    "photos": [
+      {
+        "url": "assets/images/paskal/paskal-1.jpg",
+        "caption": "Momen awal kebersamaan nonton Spider-Man di CGV 23 Paskal 🍿"
+      }
+    ],
+    "story": "Awal mula petualangan hangout seru di masa PKL, nonton bareng Spider-Man di CGV 23 Paskal.",
+    "quiz": {
+      "question": "Film apa yang kita tonton bareng waktu pertama kali hangout di 23 Paskal?",
+      "answer": "Spider-Man: Brand New Day",
+      "acceptedAnswers": [
+        "Spider-Man",
+        "Spiderman",
+        "BND",
+        "Brand New Day",
+        "Spiderman Brand New Day",
+        "Spider-Man Brand New Day",
+        "Spiderman: Brand New Day",
+        "Spider-Man: Brand New Day"
+      ],
+      "hint": "Petualangan Spider-Man: Brand New Day (bisa ketik Spider-Man, Brand New Day, atau BND) 🕷️"
+    },
+    "secretClue": "The"
+  },
+  {
+    "id": "memory-ciwalk-bandung",
+    "order": 2,
+    "title": "Seharian Penuh Cerita di Ciwalk",
+    "category": "Our Little Adventures",
+    "date": "27 Sep 2026",
+    "time": "11:00 - 21:30 WIB",
+    "location": "Cihampelas Walk (Ciwalk), Bandung",
+    "coords": [-6.8936, 107.6047],
+    "photos": [
+      {
+        "url": "assets/images/ciwalk/ciwalk-nonton.jpg",
+        "caption": "Start hari di bioskop nonton Avengers: Endgame Encore jam 12.30, seru bener kata guwa mah 🎬🍿",
+        "position": "right 90%"
+      },
+      {
+        "url": "assets/images/ciwalk/ciwalk-skywalk.jpg",
+        "caption": "Keliling Skywalk jam 16.13 abis bioskop, awas nyungsep bwang nikmatin sore Bandung 🌿😏"
+      },
+      {
+        "url": "assets/images/ciwalk/ciwalk-gigglebox.jpg",
+        "caption": "Perut demo kelaparan langsung mendarat kenyang di Giggle Box (16.31 – 18.27) nyam nyam 🍛🤤"
+      },
+      {
+        "url": "assets/images/ciwalk/ciwalk-heartwarmer.jpg",
+        "caption": "Nemenin nona Yumi hunting jepitan rambut & clay di Heartwarmer jam 18.34, lucu bener zirr 🧸🎀"
+      },
+      {
+        "url": "assets/images/ciwalk/ciwalk-kafe-fore.jpg",
+        "caption": "Nongki santai di Fore (19.39): Cafe Latte buat nona Yumi & Americano pait buat hamba ☕🥤"
+      },
+      {
+        "url": "assets/images/ciwalk/ciwalk-clay.jpg",
+        "caption": "Fokus mode on ngebentuk clay warna-warni ampe jam 20.51, berasa maen menkrep versi nyata 🎨👐"
+      },
+      {
+        "url": "assets/images/ciwalk/ciwalk-clay-result.jpg",
+        "caption": "6 karya masterpiece kita nih: cumi/gurita unguu, jamur Mario bermata, & bunga Patrick 🐙🍄🌸"
+      },
+      {
+        "url": "assets/images/ciwalk/ciwalk-jco.jpg",
+        "caption": "Mampir bungkus donat J.CO jam 21.13 buat orang rumahnya nona Yumi 🍩🏠 Hamba mah sendirian di perantauan jadi gak butuh jajan ginian ege, nemenin doang kata guwa mah :v"
+      },
+      {
+        "url": "assets/images/ciwalk/ciwalk-chikuro.jpg",
+        "caption": "Last destination OTW serbu Chikuro jam 21.20 sebelum pulang, mantap bener dah 🥖🧀"
+      }
+    ],
+    "timeline": [
+      { "time": "12.30", "icon": "🎬", "text": "Avengers: Endgame Encore" },
+      { "time": "16.13", "icon": "🌿", "text": "Skywalk sore awas nyungsep" },
+      { "time": "16.31", "icon": "🍛", "text": "Makan kenyang di Giggle Box" },
+      { "time": "18.34", "icon": "🧸", "text": "Heartwarmer & hunting jepitan" },
+      { "time": "19.39", "icon": "🎨", "text": "Fore Coffee & kreasi clay" },
+      { "time": "21.13", "icon": "🍩", "text": "J.CO & jajan Chikuro" }
+    ],
+    "story": "Rute marathon jalan seharian bareng nona Ayumi Keira di Ciwalk menjelang beres PKL. Dari heboh nonton bioskop, makan kenyang nyam nyam, ngebentuk clay menkrep roblok, sampe jajan malam banyaaa 🤤",
+    "quiz": {
+      "question": "Di Fore Coffee Ciwalk, minuman apa yang dipesen nona Yumi?",
+      "answer": "cafe latte",
+      "hint": "Kopi susu klasik yang creamy dan hangat ☕"
+    },
+    "secretClue": "moon"
+  },
+  {
+    "id": "memory-gacoan-padasuka",
+    "order": 3,
+    "title": "Makan Pedas & Kanvas Paus di Gacoan",
+    "category": "Warm Hangout",
+    "date": "04 Okt 2026",
+    "time": "14:40 - 16:20 WIB",
+    "location": "Mie Gacoan Padasuka, Cimahi",
+    "coords": [-6.8785, 107.5255],
+    "photos": [
+      {
+        "url": "assets/images/gacoan/gacoan-padasuka-depan.jpg",
+        "caption": "Tampak depan Mie Gacoan Padasuka 🏠"
+      },
+      {
+        "url": "assets/images/gacoan/gacoan-kanvas-paus.jpg",
+        "caption": "Koleksi kado kenangan: kanvas paus, bricks bunga ungu yang sudah dirakit & bricks toko boba 💜🧋"
+      },
+      {
+        "url": "assets/images/gacoan/gacoan-mie-pedas.jpg",
+        "caption": "Dua porsi Mie Gacoan pedas lengkap dengan pangsit renyah 🥢"
+      },
+      {
+        "url": "assets/images/gacoan/gacoan-hoodie-biru.jpg",
+        "caption": "Ketawa malu-malu di balik hoodie biru 💙"
+      }
+    ],
+    "story": "Membuka pertemuan terakhir dengan semangkuk mie pedas di Gacoan Padasuka sekitar jam 14.40 WIB. Suasana penuh tawa ditemani lukisan paus yang berenang di langit berbintang, bricks bunga ungu yang sudah terakit rapi dan bricks mini toko boba yang siap dirakit, serta obrolan hangat sebelum petualangan berlanjut.",
+    "quiz": {
+      "question": "Gambar hewan apa yang ada di lukisan kanvas mini waktu kita makan di Gacoan Padasuka?",
+      "answer": "paus",
+      "hint": "Hewan laut raksasa yang berenang di lautan langit malam 🐳"
+    },
+    "secretClue": "is"
+  },
+  {
+    "id": "memory-milkyverse-ramayana",
+    "order": 4,
+    "title": "Misi Gelang Luar Angkasa Milky Verse",
+    "category": "Playground Adventure",
+    "date": "04 Okt 2026",
+    "time": "16:40 - 18:30 WIB",
+    "location": "Milky Verse, Ramayana Cimahi Lt. 3",
+    "coords": [-6.8744, 107.5458],
+    "photos": [
+      {
+        "type": "image",
+        "url": "assets/images/milkyverse/milkyverse-lempar-sasaran.jpg",
+        "caption": "Fokus membidik target lempar empuk velcro 🎯✨"
+      },
+      {
+        "type": "video",
+        "url": "assets/videos/milkyverse-seluncuran-neon.mp4",
+        "caption": "Meluncur seru di perosotan lampu neon warna-warni kosmik 🌈⚡"
+      },
+      {
+        "type": "video",
+        "url": "assets/videos/milkyverse-perosotan-terowongan.mp4",
+        "caption": "Mendarat santai di kolam bola dari terowongan ungu raksasa 💜🟣"
+      },
+      {
+        "type": "video",
+        "url": "assets/videos/milkyverse-tangga-rol-ungu.mp4",
+        "caption": "Menaklukkan rintangan tangga rol putar warna-warni 🪜✨"
+      },
+      {
+        "type": "video",
+        "url": "assets/videos/milkyverse-keliling-arena.mp4",
+        "caption": "Keliling arena bermain luar angkasa Milky Verse Ramayana Cimahi 🚀🪐"
+      }
+    ],
+    "story": "Tiba di Ramayana Cimahi sekitar pukul 16.40 WIB, langsung memakai tiket gelang biru kembar luar angkasa Milky Verse. Puas seru-seruan meluncur di perosotan lampu neon, melempar sasaran empuk, lalu jalan santai menyusuri lorong belanja supermarket sampai menjelang maghrib.",
+    "quiz": {
+      "question": "Apa tulisan di tiket gelang biru kembar yang kita pakai di arena bermain Ramayana?",
+      "answer": "milky verse",
+      "hint": "Ada kata 'Milky' seperti galaksi tempat bintang berpijar 🌌"
+    },
+    "secretClue": "beautiful,"
+  },
+  {
+    "id": "memory-the-upperside-cimall",
+    "order": 5,
+    "title": "Citylight & Kado Istimewa The Upperside",
+    "category": "Rooftop Vibe",
+    "date": "04 Okt 2026",
+    "time": "19:02 - 21:50 WIB",
+    "location": "MR.DIY & The Upperside Rooftop Cimahi Mall",
+    "coords": [-6.8725, 107.5424],
+    "photos": [
+      {
+        "url": "assets/images/upperside/upperside-sign-rooftop.jpg",
+        "caption": "Tiba di rooftop Cimahi Mall disambut pendar neon sign The Upperside 🏙️✨"
+      },
+      {
+        "url": "assets/images/upperside/upperside-naik-tangga.jpg",
+        "caption": "Menapaki tangga ungu menuju dek balkon atas The Upperside 💜🪜"
+      },
+      {
+        "url": "assets/images/upperside/upperside-mrdiy-capybara.jpg",
+        "caption": "Mampir ke MR.DIY Cimahi Mall, gemas melihat deretan boneka & merchandise capybara 🦫✨"
+      },
+      {
+        "url": "assets/images/upperside/upperside-mrdiy-lorong.jpg",
+        "caption": "Berkeliling lorong belanja MR.DIY sebelum naik ke rooftop 🛍️🚶‍♀️"
+      },
+      {
+        "url": "assets/images/upperside/upperside-kado-meja.jpg",
+        "caption": "Meja balkon penuh kado istimewa dari Yumi sebelum perjalanan PKL usai 🎁🐙"
+      },
+      {
+        "url": "assets/images/upperside/upperside-kado-bricks-kue.jpg",
+        "caption": "Bricks kue ulang tahun berpendar lampu rakitan Yumi (~3 jam effort) 🎂💡"
+      },
+      {
+        "url": "assets/images/upperside/upperside-kado-bricks-nick.jpg",
+        "caption": "Bricks miniatur karakter Nick Wilde dari Zootopia 🦊🧱"
+      },
+      {
+        "url": "assets/images/upperside/upperside-kado-keychain-kucing.jpg",
+        "caption": "Gantungan kunci kucing kardus kembar: si putih untukku, si abu-abu untuk Yumi 🐱📦"
+      },
+      {
+        "url": "assets/images/upperside/upperside-kado-musicbox.jpg",
+        "caption": "Kotak musik kayu putar pengalun melodi Happy Birthday 🎶🪵"
+      },
+      {
+        "url": "assets/images/upperside/upperside-kado-boneka-gurita.jpg",
+        "caption": "Boneka gurita 2 ekspresi: mode abu-abu senang vs mode hitam galak 🐙🖤"
+      },
+      {
+        "url": "assets/images/upperside/upperside-kado-buku-memory.jpg",
+        "caption": "Buku catatan 'My own fragments of memory' penyimpan surat kenangan 📖✨"
+      },
+      {
+        "url": "assets/images/upperside/upperside-citylight-view.jpg",
+        "caption": "Menatap gemerlap city lights malam kota Cimahi ditemani si gurita 🌃✨"
+      },
+      {
+        "url": "assets/images/upperside/upperside-matcha-citylight.jpg",
+        "caption": "Menikmati segelas matcha dingin berlatar panorama malam Cimahi 🍵🌌"
+      }
+    ],
+    "story": "Pukul 19.02 meluncur menuju Cimahi Mall dan mampir ke MR.DIY pada 19.18 WIB, lalu naik ke The Upperside Rooftop. Yumi memberikan kado-kado perpisahan yang sangat manis dan penuh kenangan: bricks kue ulang tahun dengan lampu yang dirakit Yumi selama ~3 jam, bricks Nick Wilde Zootopia, gantungan kunci kucing kardus kembar (si putih untukku dan si abu-abu untuk Yumi), kotak musik putar Happy Birthday, boneka gurita 2 ekspresi, buku jurnal 'My own fragments of memory', bricks bunga ungu, box bricks toko boba, aneka camilan, serta selembar surat kenangan hangat tulisan tangan bertanda tangan Ayumi Keira. Menikmati city lights malam dari balkon rooftop dan menutup perjalanan PKL dengan sejuta kenangan abadi di pintu barat pukul 21.50 WIB.",
+    "quiz": {
+      "question": "Lagu apa yang dimainkan kotak musik kayu putar yang diberikan Yumi?",
+      "answer": "happy birthday",
+      "hint": "Lagu perayaan hari lahir yang penuh doa 🎂🎶"
+    },
+    "secretClue": "isn't it?"
+  }
+]

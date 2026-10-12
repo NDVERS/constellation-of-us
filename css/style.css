@@ -1,0 +1,2334 @@
+:root {
+  --primary: #f43f5e;
+  --primary-hover: #e11d48;
+  --primary-light: #ffe4e6;
+  --bg-glass: rgba(255, 255, 255, 0.85);
+  --bg-glass-dark: rgba(15, 23, 42, 0.85);
+  --border-glass: rgba(255, 255, 255, 0.4);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  overflow: hidden;
+  background-color: #f8fafc;
+}
+
+.font-handwriting {
+  font-family: 'Caveat', 'Comic Sans MS', 'Bradley Hand', 'Segoe Script', cursive;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(241, 245, 249, 0.8);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(244, 63, 94, 0.35);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(244, 63, 94, 0.6);
+}
+
+/* Glassmorphism Styles */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 20px 40px -15px rgba(225, 29, 72, 0.08), 0 0 1px 1px rgba(0, 0, 0, 0.04);
+  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.glass-panel-dark {
+  background: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.4);
+}
+
+/* Dark Theme Overrides (Night Mode) */
+body.theme-dark {
+  background-color: #0b0f19;
+  color: #f1f5f9;
+}
+
+body.theme-dark #map,
+#map.dark-tiles {
+  background-color: #0b0f19;
+}
+
+/* Sunset Theme Overrides (Mode Senja / Sunset Lembayung Bandung) */
+body.theme-sunset {
+  background-color: #170d24;
+  color: #fae8ff;
+}
+
+body.theme-sunset #map,
+#map.sunset-tiles {
+  background-color: #170d24;
+}
+
+/* Map Tile Pane Container (Day / Sunset / Dark) with cinematic smooth filter transition */
+.leaflet-tile-pane {
+  transition: filter 1.2s cubic-bezier(0.4, 0, 0.2, 1), -webkit-filter 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dark-tiles .leaflet-tile-pane,
+body.theme-dark .leaflet-tile-pane {
+  filter: brightness(0.9) contrast(1.1) !important;
+  -webkit-filter: brightness(0.9) contrast(1.1) !important;
+}
+
+.sunset-tiles .leaflet-tile-pane,
+body.theme-sunset .leaflet-tile-pane {
+  filter: brightness(0.9) contrast(1.15) sepia(0.3) hue-rotate(290deg) saturate(1.4) !important;
+  -webkit-filter: brightness(0.9) contrast(1.15) sepia(0.3) hue-rotate(290deg) saturate(1.4) !important;
+}
+
+body.theme-dark .glass-panel {
+  background: rgba(15, 23, 42, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #f8fafc;
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5), 0 0 1px 1px rgba(255, 255, 255, 0.05);
+}
+
+body.theme-sunset .glass-panel {
+  background: rgba(36, 17, 51, 0.85);
+  border: 1px solid rgba(251, 113, 133, 0.28);
+  color: #fdf2f8;
+  box-shadow: 0 20px 40px -15px rgba(244, 63, 94, 0.25), 0 0 15px rgba(251, 191, 36, 0.1);
+}
+
+body.theme-dark h1,
+body.theme-dark h2,
+body.theme-dark h3,
+body.theme-dark h5 {
+  color: #f8fafc;
+}
+
+body.theme-sunset h1,
+body.theme-sunset h2,
+body.theme-sunset h3,
+body.theme-sunset h5 {
+  color: #fdf4ff;
+}
+
+body.theme-dark .text-slate-900,
+body.theme-dark .text-slate-800 {
+  color: #f1f5f9;
+}
+
+body.theme-sunset .text-slate-900,
+body.theme-sunset .text-slate-800 {
+  color: #fdf4ff !important;
+}
+
+body.theme-dark .text-slate-700 {
+  color: #e2e8f0;
+}
+
+body.theme-sunset .text-slate-700 {
+  color: #f5d0fe !important;
+}
+
+body.theme-dark .text-slate-500 {
+  color: #94a3b8;
+}
+
+body.theme-sunset .text-slate-500 {
+  color: #e879f9 !important;
+}
+
+/* Sidebar Cosmic Glassmorphism & Sunset Mode */
+body.theme-sunset #sidebar {
+  background: rgba(30, 13, 44, 0.86) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid rgba(251, 113, 133, 0.3) !important;
+  box-shadow: 0 20px 45px -15px rgba(225, 29, 72, 0.35), 0 0 20px rgba(244, 63, 94, 0.15) !important;
+}
+
+body.theme-sunset #sidebar .bg-white\/40 {
+  background: rgba(38, 16, 56, 0.65) !important;
+  border-bottom: 1px solid rgba(251, 113, 133, 0.22) !important;
+}
+
+/* Sidebar Cosmic Glassmorphism & Dark Mode */
+body.theme-dark #sidebar {
+  background: rgba(15, 23, 42, 0.82) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid rgba(56, 189, 248, 0.15) !important;
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7), 0 0 20px rgba(56, 189, 248, 0.05) !important;
+}
+
+body.theme-dark #sidebar .bg-white\/40 {
+  background: rgba(15, 23, 42, 0.6) !important;
+  border-bottom: 1px solid rgba(56, 189, 248, 0.12) !important;
+}
+
+/* Sub-Header & Subtitle High Contrast */
+body:not(.theme-dark):not(.theme-sunset) header p,
+body:not(.theme-dark):not(.theme-sunset) #app-header p,
+body:not(.theme-dark):not(.theme-sunset) .header-subtitle,
+body:not(.theme-dark):not(.theme-sunset) .sidebar-subheading,
+.header-subtitle {
+  color: #1e293b;
+  opacity: 1;
+}
+
+body.theme-sunset header p,
+body.theme-sunset #app-header p,
+body.theme-sunset #main-header p,
+body.theme-sunset .header-subtitle,
+body.theme-sunset .sidebar-subheading {
+  color: #fce7f3 !important; /* Rose-100 lembut yang kontras dan jelas terbaca */
+  opacity: 0.95 !important;
+  font-weight: 600 !important;
+}
+
+body.theme-dark header p,
+body.theme-dark #app-header p,
+body.theme-dark #main-header p,
+body.theme-dark .header-subtitle,
+body.theme-dark .sidebar-subheading {
+  color: #e2e8f0 !important;
+  opacity: 0.95 !important;
+  font-weight: 600 !important;
+}
+
+/* Sidebar Footer High Contrast */
+#sidebar-footer,
+.sidebar-footer-container {
+  background: rgba(255, 241, 242, 0.95);
+  border-top: 1px solid rgba(254, 205, 211, 0.9);
+}
+
+.sidebar-footer-hint,
+#sidebar-footer p,
+#sidebar-footer span,
+#sidebar .sidebar-footer-hint {
+  color: #1e293b !important;
+  font-weight: 700 !important;
+  opacity: 1 !important;
+}
+
+body.theme-dark #sidebar-footer,
+body.theme-dark .sidebar-footer-container {
+  background: rgba(15, 23, 42, 0.95) !important;
+  border-top: 1px solid rgba(56, 189, 248, 0.25) !important;
+}
+
+body.theme-dark .sidebar-footer-hint,
+body.theme-dark #sidebar-footer p,
+body.theme-dark #sidebar-footer span,
+body.theme-dark #sidebar .sidebar-footer-hint {
+  color: #f8fafc !important;
+  font-weight: 700 !important;
+  opacity: 1 !important;
+}
+
+body.theme-dark #btn-auto-tour {
+  background: rgba(30, 41, 59, 0.9) !important;
+  color: #38bdf8 !important;
+  border-color: rgba(56, 189, 248, 0.35) !important;
+}
+
+body.theme-dark #btn-auto-tour:hover {
+  background: rgba(51, 65, 85, 0.95) !important;
+  color: #f0f9ff !important;
+}
+
+body.theme-dark #btn-auto-tour i {
+  color: #38bdf8 !important;
+}
+
+body.theme-dark #btn-sort-order {
+  background: rgba(30, 41, 59, 0.8) !important;
+  border: 1px solid rgba(56, 189, 248, 0.25) !important;
+  color: #38bdf8 !important;
+}
+
+body.theme-dark #btn-sort-order i {
+  color: #38bdf8 !important;
+}
+
+body.theme-dark #btn-close-sidebar {
+  background: rgba(30, 41, 59, 0.8) !important;
+  color: #cbd5e1 !important;
+}
+
+body.theme-dark #btn-close-sidebar:hover {
+  background: rgba(51, 65, 85, 0.9) !important;
+  color: #f43f5e !important;
+}
+
+/* Dark Theme Filter Chips */
+body.theme-dark .filter-chip {
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: #94a3b8 !important;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+body.theme-dark .filter-chip:hover {
+  background: rgba(255, 255, 255, 0.12) !important;
+  color: #f1f5f9 !important;
+}
+
+body.theme-dark .filter-chip.bg-rose-500,
+body.theme-dark .filter-chip.active-filter {
+  background: linear-gradient(135deg, #e11d48, #f43f5e) !important;
+  color: #ffffff !important;
+  border-color: rgba(244, 63, 94, 0.6) !important;
+  box-shadow: 0 0 12px rgba(244, 63, 94, 0.4) !important;
+}
+
+/* ==========================================================================
+   OPTIMIZED SIDEBAR SCROLL & GPU COMPOSITING (60 FPS FLUIDITY)
+   ========================================================================== */
+#memory-list {
+  contain: content;
+  transform: translateZ(0);
+  will-change: scroll-position;
+  -webkit-overflow-scrolling: touch;
+}
+
+.memory-card {
+  contain: layout style paint;
+  transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease !important;
+}
+
+/* Dark Theme Memory Card Items */
+body.theme-dark .memory-card {
+  background: rgba(30, 41, 59, 0.5) !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  color: #e2e8f0;
+  transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease !important;
+}
+
+body.theme-dark .memory-card:hover {
+  background: rgba(51, 65, 85, 0.6) !important;
+  border-color: rgba(56, 189, 248, 0.4) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px -8px rgba(0, 0, 0, 0.5), 0 0 12px rgba(56, 189, 248, 0.15) !important;
+}
+
+/* Active Memory Card Halo (GPU-friendly static ring without continuous repaint) */
+.memory-card.ring-rose-500,
+.memory-card.active-memory {
+  position: relative;
+  border-color: #f43f5e !important;
+  box-shadow: 0 0 0 2px rgba(244, 63, 94, 0.6), 0 4px 12px rgba(244, 63, 94, 0.18) !important;
+  animation: none !important;
+}
+
+body.theme-dark .memory-card.ring-rose-500,
+body.theme-dark .memory-card.active-memory {
+  background: rgba(51, 65, 85, 0.75) !important;
+  border-color: #38bdf8 !important;
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.65), 0 0 16px rgba(56, 189, 248, 0.25) !important;
+  animation: none !important;
+}
+
+body.theme-dark .memory-card .w-14.h-14 {
+  background: rgba(15, 23, 42, 0.8) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+body.theme-dark .memory-card h4 {
+  color: #f1f5f9;
+}
+
+body.theme-dark .memory-card:hover h4 {
+  color: #38bdf8;
+}
+
+body.theme-dark .memory-card .text-slate-500 {
+  color: #94a3b8 !important;
+}
+
+/* Dark Theme Footer / Secret Memory Card ("Sampai Bertemu Lagi!") */
+body.theme-dark .future-adventures-card {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.85), rgba(15, 23, 42, 0.95)) !important;
+  border: 1px solid rgba(56, 189, 248, 0.25) !important;
+  box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.6), 0 0 15px rgba(56, 189, 248, 0.08) !important;
+}
+
+body.theme-dark .future-adventures-card h5 {
+  color: #38bdf8 !important;
+  text-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+}
+
+body.theme-dark .future-adventures-card .font-handwriting,
+body.theme-dark .future-adventures-card p {
+  color: #cbd5e1 !important;
+  font-style: italic;
+}
+
+body.theme-dark .future-adventures-card .w-8.h-8 {
+  background: rgba(56, 189, 248, 0.15) !important;
+  color: #38bdf8 !important;
+}
+
+body.theme-dark .future-adventures-card .border-t {
+  border-top-color: rgba(56, 189, 248, 0.15) !important;
+}
+
+/* Glassmorphism Kartu Memori Sidebar di Mode Senja */
+body.theme-sunset .memory-card {
+  background: rgba(48, 21, 68, 0.65) !important;
+  border: 1px solid rgba(251, 113, 133, 0.25) !important;
+  color: #fdf4ff !important;
+}
+
+body.theme-sunset .memory-card:hover {
+  background: rgba(68, 30, 96, 0.8) !important;
+  border-color: rgba(251, 191, 36, 0.45) !important;
+  box-shadow: 0 10px 24px -8px rgba(0, 0, 0, 0.5), 0 0 15px rgba(244, 63, 94, 0.25) !important;
+}
+
+body.theme-sunset .memory-card .text-slate-500 {
+  color: #fce7f3 !important; /* Rose-100 lembut & terbaca jelas */
+}
+
+/* Active Memory Card di Mode Senja */
+body.theme-sunset .memory-card.ring-rose-500,
+body.theme-sunset .memory-card.active-memory {
+  background: rgba(88, 28, 135, 0.75) !important;
+  border-color: #fb7185 !important;
+  box-shadow: 0 0 0 2px rgba(251, 113, 133, 0.7), 0 0 16px rgba(244, 63, 94, 0.3) !important;
+}
+
+/* Filter Chips di Mode Senja */
+body.theme-sunset .filter-chip {
+  background: rgba(48, 21, 68, 0.7) !important;
+  color: #fce7f3 !important;
+}
+body.theme-sunset .filter-chip:hover {
+  background: rgba(88, 28, 135, 0.8) !important;
+}
+body.theme-sunset .filter-chip.bg-rose-500,
+body.theme-sunset .filter-chip.active-filter {
+  background: linear-gradient(135deg, #e11d48, #f43f5e) !important;
+  color: #ffffff !important;
+  border-color: rgba(251, 113, 133, 0.6) !important;
+  box-shadow: 0 0 12px rgba(244, 63, 94, 0.4) !important;
+}
+
+/* Kartu Next Episode Samarinda di Mode Senja */
+body.theme-sunset .future-adventures-card {
+  background: linear-gradient(135deg, rgba(48, 21, 68, 0.85), rgba(30, 13, 44, 0.95)) !important;
+  border: 1px dashed rgba(251, 113, 133, 0.4) !important;
+  color: #fdf4ff !important;
+}
+
+body.theme-sunset .future-adventures-card h5 {
+  color: #fde047 !important; /* Kuning bintang hangat */
+}
+
+body.theme-sunset .future-adventures-card p {
+  color: #fce7f3 !important;
+}
+
+/* Kotak Kuis Ciwalk (Mode Senja & Gelap) */
+body.theme-sunset #quiz-modal .bg-amber-50\/80,
+body.theme-dark #quiz-modal .bg-amber-50\/80 {
+  background: rgba(48, 21, 68, 0.85) !important;
+  border: 1px solid rgba(251, 191, 36, 0.35) !important;
+}
+
+body.theme-sunset #quiz-modal #quiz-question,
+body.theme-dark #quiz-modal #quiz-question {
+  color: #fef08a !important; /* Kuning terang tegas */
+}
+
+body.theme-sunset #quiz-modal input#quiz-answer-input,
+body.theme-dark #quiz-modal input#quiz-answer-input {
+  background: rgba(30, 13, 44, 0.85) !important;
+  border-color: rgba(251, 113, 133, 0.4) !important;
+  color: #fdf4ff !important;
+}
+
+/* Dark Theme Polaroid Modal Cosmic Styling */
+body.theme-dark #polaroid-modal {
+  background-color: rgba(2, 6, 23, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+body.theme-dark #polaroid-modal .polaroid-frame {
+  background: rgba(15, 23, 42, 0.95) !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 20px rgba(56, 189, 248, 0.15) !important;
+}
+
+body.theme-dark .polaroid-frame::before {
+  background: rgba(56, 189, 248, 0.2) !important;
+  border-left: 2px dashed rgba(56, 189, 248, 0.4) !important;
+  border-right: 2px dashed rgba(56, 189, 248, 0.4) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+body.theme-dark .polaroid-sub-caption,
+body.theme-dark #polaroid-subcaption {
+  color: #f1f5f9 !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7) !important;
+}
+
+body.theme-dark .polaroid-photo-divider {
+  border-top: 1px dashed rgba(255, 255, 255, 0.15) !important;
+}
+
+body.theme-dark #polaroid-title {
+  color: #f8fafc !important;
+  font-weight: 800 !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+body.theme-dark #polaroid-location {
+  color: #38bdf8 !important;
+}
+
+body.theme-dark #polaroid-location-text {
+  color: #38bdf8 !important;
+}
+
+body.theme-dark #polaroid-location i {
+  color: #f43f5e !important;
+}
+
+body.theme-dark #polaroid-date {
+  background: rgba(244, 63, 94, 0.15) !important;
+  color: #fb7185 !important;
+  border: 1px solid rgba(244, 63, 94, 0.3) !important;
+}
+
+body.theme-dark #polaroid-modal .bg-amber-50\/50 {
+  background: rgba(30, 41, 59, 0.7) !important;
+  border: 1px solid rgba(56, 189, 248, 0.2) !important;
+  border-left: 3px solid #38bdf8 !important;
+  border-radius: 0.75rem;
+  padding: 0.875rem !important;
+}
+
+body.theme-dark #polaroid-story {
+  color: #f8fafc !important;
+  font-weight: 600 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Dark Theme Mini Timeline Pills */
+body.theme-dark .timeline-pill {
+  background: rgba(30, 41, 59, 0.75) !important;
+  border: 1px solid rgba(56, 189, 248, 0.2) !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+body.theme-dark .timeline-pill:hover {
+  background: rgba(51, 65, 85, 0.85) !important;
+  border-color: rgba(56, 189, 248, 0.5) !important;
+  box-shadow: 0 4px 12px rgba(56, 189, 248, 0.15);
+}
+
+body.theme-dark .timeline-pill .timeline-badge {
+  background: rgba(56, 189, 248, 0.2) !important;
+  color: #38bdf8 !important;
+}
+
+body.theme-dark .timeline-pill span.text-stone-700,
+body.theme-dark .timeline-pill .text-stone-700 {
+  color: #e2e8f0 !important;
+}
+
+body.theme-dark .timeline-pill span.text-rose-600\/90,
+body.theme-dark .timeline-pill .text-rose-600\/90 {
+  color: #38bdf8 !important;
+}
+
+body.theme-dark #polaroid-timeline-container p {
+  color: #94a3b8 !important;
+}
+
+body.theme-dark #polaroid-timeline-container i {
+  color: #38bdf8 !important;
+}
+
+body.theme-dark .custom-scroll::-webkit-scrollbar-thumb {
+  background: rgba(56, 189, 248, 0.3);
+}
+
+body.theme-dark .custom-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(56, 189, 248, 0.6);
+}
+
+/* Polaroid Photo Controls in Dark Theme */
+body.theme-dark #gallery-btn-prev,
+body.theme-dark #gallery-btn-next {
+  background: rgba(15, 23, 42, 0.75) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: #f8fafc !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+}
+
+body.theme-dark #gallery-btn-prev:hover,
+body.theme-dark #gallery-btn-next:hover {
+  background: rgba(30, 41, 59, 0.95) !important;
+  color: #38bdf8 !important;
+  border-color: rgba(56, 189, 248, 0.5) !important;
+}
+
+body.theme-dark #polaroid-modal button[onclick*="closePolaroidModal"] {
+  background: rgba(15, 23, 42, 0.8) !important;
+  color: #f8fafc !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+}
+
+body.theme-dark #polaroid-modal button[onclick*="closePolaroidModal"]:hover {
+  background: rgba(225, 29, 72, 0.85) !important;
+  color: #ffffff !important;
+  border-color: rgba(244, 63, 94, 0.6) !important;
+}
+
+/* Polaroid Bottom Controls in Dark Theme */
+body.theme-dark #polaroid-modal .bg-white {
+  background: transparent !important;
+  border-top-color: rgba(56, 189, 248, 0.15) !important;
+}
+
+body.theme-dark #polaroid-prev,
+body.theme-dark #polaroid-next {
+  color: #38bdf8 !important;
+  transition: all 0.2s ease;
+}
+
+body.theme-dark #polaroid-prev:hover,
+body.theme-dark #polaroid-next:hover {
+  color: #f8fafc !important;
+  background: rgba(56, 189, 248, 0.15);
+  border-radius: 0.5rem;
+}
+
+body.theme-dark #polaroid-prev:disabled,
+body.theme-dark #polaroid-next:disabled {
+  color: #475569 !important;
+  opacity: 0.4 !important;
+  background: transparent !important;
+}
+
+body.theme-dark #polaroid-modal .text-amber-500 {
+  color: #fbbf24 !important;
+}
+
+/* Dark Theme Gamified Quiz Modal */
+body.theme-dark #quiz-modal .bg-amber-50\/80 {
+  background: rgba(30, 41, 59, 0.7) !important;
+  border-color: rgba(245, 158, 11, 0.3) !important;
+}
+
+body.theme-dark #quiz-modal #quiz-question {
+  color: #f1f5f9 !important;
+}
+
+body.theme-dark #quiz-modal #quiz-hint-box {
+  background: rgba(30, 41, 59, 0.8) !important;
+  border-color: rgba(244, 63, 94, 0.3) !important;
+  color: #fda4af !important;
+}
+
+body.theme-dark #quiz-modal #quiz-answer-input {
+  background: rgba(15, 23, 42, 0.8) !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+  color: #f8fafc !important;
+}
+
+body.theme-dark #quiz-modal #quiz-answer-input:focus {
+  border-color: #38bdf8 !important;
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.25) !important;
+}
+
+body.theme-dark #quiz-modal button[onclick*="closeQuizModal"] {
+  background: rgba(30, 41, 59, 0.8) !important;
+  color: #cbd5e1 !important;
+}
+
+body.theme-dark #quiz-modal button[onclick*="closeQuizModal"]:hover {
+  background: rgba(225, 29, 72, 0.8) !important;
+  color: #ffffff !important;
+}
+
+body.theme-dark .leaflet-control-zoom a {
+  background-color: rgba(15, 23, 42, 0.9) !important;
+  color: #f1f5f9 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+}
+
+body.theme-dark .leaflet-control-zoom a:hover {
+  background-color: #1e293b !important;
+  color: #38bdf8 !important;
+}
+
+/* Sidebar Sliding Drawer with Hardware Compositing Layer */
+#sidebar {
+  transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease, visibility 0.3s;
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+#sidebar.sidebar-hidden {
+  transform: translate3d(calc(-100% - 2rem), 0, 0) !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden;
+}
+
+#sidebar.sidebar-visible {
+  transform: translate3d(0, 0, 0) !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  visibility: visible;
+}
+
+/* Lightened Blur & Opaque Background for Fast 60 FPS Scrolling */
+#sidebar.glass-panel {
+  background: rgba(255, 255, 255, 0.96) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  box-shadow: 0 16px 36px -12px rgba(0, 0, 0, 0.12), 0 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+
+body.theme-dark #sidebar.glass-panel {
+  background: rgba(15, 23, 42, 0.96) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  box-shadow: 0 16px 36px -12px rgba(0, 0, 0, 0.5), 0 0 1px 1px rgba(255, 255, 255, 0.05);
+}
+
+body.theme-sunset #sidebar.glass-panel {
+  background: rgba(36, 17, 51, 0.95) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  box-shadow: 0 16px 36px -12px rgba(244, 63, 94, 0.25), 0 0 12px rgba(251, 191, 36, 0.1);
+}
+
+/* Leaflet Map Overrides */
+#map {
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  background-color: #f5f3ef;
+}
+
+.leaflet-control-zoom {
+  border: none !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1) !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  margin-top: 85px !important;
+  margin-right: 12px !important;
+  margin-bottom: 0 !important;
+  z-index: 20 !important;
+}
+
+@media (min-width: 768px) {
+  .leaflet-control-zoom {
+    margin-top: 88px !important;
+    margin-right: 24px !important;
+  }
+}
+
+.leaflet-control-zoom a {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(8px);
+  color: #334155 !important;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.8) !important;
+  width: 38px !important;
+  height: 38px !important;
+  line-height: 38px !important;
+  transition: all 0.2s ease;
+}
+
+.leaflet-control-zoom a:hover {
+  background-color: #fff1f2 !important;
+  color: #f43f5e !important;
+}
+
+/* OpenStreetMap Soft Tonal Canvas Filter for Day Mode (Clean & Crisp) */
+.leaflet-tile-pane {
+  filter: saturate(0.9) contrast(0.98) brightness(1.01);
+  transition: filter 0.4s ease-in-out;
+}
+
+body.theme-dark .leaflet-tile-pane,
+.dark-tiles .leaflet-tile-pane {
+  filter: brightness(0.9) contrast(1.1) !important;
+}
+
+/* Custom Constellation Leaflet Marker Wrapper */
+.constellation-leaflet-marker-wrapper {
+  background: transparent !important;
+  border: none !important;
+}
+
+/* Custom Constellation Star Diamond Pin */
+.constellation-marker-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.constellation-marker-container:hover {
+  transform: scale(1.15) translateY(-3px);
+  z-index: 9999 !important;
+}
+
+.constellation-marker-container.active-pin {
+  transform: scale(1.22) translateY(-5px);
+  z-index: 10000 !important;
+}
+
+.constellation-marker-aura {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(244, 63, 94, 0.45) 0%, rgba(244, 63, 94, 0) 70%);
+  animation: auraBreath 2.6s infinite ease-in-out;
+  pointer-events: none;
+}
+
+body.theme-dark .constellation-marker-aura,
+.dark-tiles .constellation-marker-aura {
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.55) 0%, rgba(56, 189, 248, 0) 70%);
+}
+
+.constellation-star-core {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: linear-gradient(135deg, #fb7185, #e11d48);
+  color: #fff1f2;
+  box-shadow: 0 4px 14px rgba(225, 29, 72, 0.4), 0 0 12px rgba(251, 113, 133, 0.6), 0 0 0 2px rgba(255, 255, 255, 0.95);
+  transition: all 0.3s ease;
+}
+
+.constellation-marker-container.is-locked .constellation-star-core {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #fffbeb;
+  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.4), 0 0 12px rgba(245, 158, 11, 0.6), 0 0 0 2px rgba(255, 255, 255, 0.95);
+}
+
+body.theme-dark .constellation-star-core,
+.dark-tiles .constellation-star-core {
+  background: linear-gradient(135deg, #38bdf8, #0284c7);
+  color: #f0f9ff;
+  box-shadow: 0 0 18px rgba(56, 189, 248, 0.8), 0 0 0 2px rgba(255, 255, 255, 0.9);
+}
+
+body.theme-dark .constellation-marker-container.is-locked .constellation-star-core,
+.dark-tiles .constellation-marker-container.is-locked .constellation-star-core {
+  background: linear-gradient(135deg, #fbbf24, #b45309);
+  color: #fffbeb;
+  box-shadow: 0 0 18px rgba(251, 191, 36, 0.75), 0 0 0 2px rgba(255, 255, 255, 0.9);
+}
+
+.constellation-star-icon {
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.8));
+  transition: transform 0.3s ease;
+}
+
+.constellation-marker-container:hover .constellation-star-icon {
+  transform: rotate(45deg) scale(1.1);
+}
+
+.constellation-floating-pill {
+  margin-top: 4px;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+  background: rgba(255, 255, 255, 0.92);
+  color: #1e293b;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(6px);
+  pointer-events: none;
+  transition: all 0.25s ease;
+}
+
+body.theme-dark .constellation-floating-pill,
+.dark-tiles .constellation-floating-pill {
+  background: rgba(15, 23, 42, 0.88);
+  color: #f8fafc;
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5), 0 0 6px rgba(56, 189, 248, 0.2);
+  backdrop-filter: blur(8px);
+}
+
+.constellation-lock-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: #1e293b;
+  color: #fbbf24;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  animation: lockFloat 2s ease-in-out infinite alternate;
+}
+
+@keyframes auraBreath {
+  0% {
+    transform: translate(-50%, 0) scale(0.9);
+    opacity: 0.85;
+  }
+  50% {
+    transform: translate(-50%, 0) scale(1.65);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translate(-50%, 0) scale(0.9);
+    opacity: 0.85;
+  }
+}
+
+@keyframes lockFloat {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-3px);
+  }
+}
+
+/* Cinematic Pin Bounce Animation */
+.constellation-marker-container.pin-bounce,
+.custom-pin-container.pin-bounce {
+  animation: pinBounce 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  z-index: 9999 !important;
+}
+
+@keyframes pinBounce {
+  0% {
+    transform: scale(1) translateY(0);
+  }
+  30% {
+    transform: scale(1.4) translateY(-16px);
+  }
+  60% {
+    transform: scale(0.95) translateY(0);
+  }
+  80% {
+    transform: scale(1.2) translateY(-4px);
+  }
+  100% {
+    transform: scale(1.15) translateY(-2px);
+  }
+}
+
+/* Polaroid Card Effect (Authentic Physical Ivory Finish) */
+.polaroid-frame {
+  background: #faf8f5;
+  padding: 12px 12px 14px 12px;
+  border-radius: 10px;
+  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.28), 0 2px 6px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  position: relative;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  overscroll-behavior: contain;
+}
+
+#polaroid-modal {
+  overscroll-behavior: contain;
+}
+
+/* Isolasi Kontras Kertas Polaroid */
+.polaroid-frame h3,
+.polaroid-frame #polaroid-title,
+.polaroid-frame #polaroid-location,
+.polaroid-frame #polaroid-location-text,
+.polaroid-frame #polaroid-story,
+.polaroid-frame .polaroid-sub-caption,
+.secret-mini-polaroid p {
+  color: #1e293b !important; /* Slate 800 - Tajam di atas kertas putih */
+}
+
+.polaroid-frame .timeline-pill span {
+  color: #334155 !important;
+}
+
+/* Isolasi Kontras Mode Senja pada Kertas Polaroid */
+body.theme-sunset .polaroid-frame .text-slate-500,
+body.theme-sunset .polaroid-frame .text-slate-400,
+body.theme-sunset #polaroid-prev,
+body.theme-sunset #polaroid-next {
+  color: #64748b !important;
+}
+
+/* Custom Sleek Scrollbar for Modal Text */
+.custom-scroll {
+  overscroll-behavior: contain;
+}
+.custom-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: rgba(244, 63, 94, 0.25);
+  border-radius: 9999px;
+}
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(244, 63, 94, 0.5);
+}
+
+.polaroid-frame::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-0.5deg);
+  width: 86px;
+  height: 24px;
+  background: rgba(254, 240, 138, 0.55);
+  backdrop-filter: blur(3px);
+  border-left: 2px dashed rgba(217, 119, 6, 0.25);
+  border-right: 2px dashed rgba(217, 119, 6, 0.25);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  z-index: 20;
+}
+
+.polaroid-image-container {
+  position: relative;
+  overflow: hidden;
+  background-color: #0f172a;
+  aspect-ratio: 4 / 3;
+  border-radius: 4px;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: zoom-in;
+}
+
+/* Progressive Shimmer Loader for Polaroid Container */
+.polaroid-image-container.is-loading-shimmer {
+  background: linear-gradient(90deg, #0f172a 0%, #1e293b 35%, #334155 50%, #1e293b 65%, #0f172a 100%);
+  background-size: 200% 100%;
+  animation: shimmerSlide 1.6s infinite linear;
+}
+
+@keyframes shimmerSlide {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.polaroid-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease;
+  transform-origin: center center;
+  will-change: transform, opacity;
+}
+
+.polaroid-image-container img.photo-zoomed {
+  transform: scale(1.8) !important;
+  cursor: zoom-out;
+  z-index: 10;
+}
+
+.polaroid-frame:hover .polaroid-image-container img:not(.photo-zoomed) {
+  transform: scale(1.03);
+}
+
+/* Polaroid Bottom Chin & Handwritten Sub-Caption */
+.polaroid-bottom-chin {
+  min-height: 28px;
+}
+
+.polaroid-sub-caption {
+  font-family: 'Caveat', cursive, var(--font-handwriting, sans-serif);
+  font-size: 1.05rem;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
+  color: #44403c;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+#polaroid-subcaption-container {
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.polaroid-photo-divider {
+  border-top: 1px dashed rgba(214, 211, 209, 0.7);
+}
+
+/* Mini Timeline Pills */
+.timeline-pill {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(231, 229, 228, 0.8);
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.timeline-pill:hover {
+  transform: translateY(-1px);
+  border-color: rgba(244, 63, 94, 0.35);
+  box-shadow: 0 4px 10px rgba(244, 63, 94, 0.08);
+  background: #ffffff;
+}
+
+/* Floating Controls Safe Area Insets & Thumb-Zone Ergonomics */
+.floating-bottom-safe,
+#floating-clue-pill {
+  bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px)) !important;
+  left: calc(1rem + env(safe-area-inset-left, 0px)) !important;
+}
+
+@media (min-width: 640px) {
+  .floating-bottom-safe,
+  #floating-clue-pill {
+    left: calc(1.5rem + env(safe-area-inset-left, 0px)) !important;
+  }
+}
+
+.floating-audio-container {
+  bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px)) !important;
+  right: calc(1rem + env(safe-area-inset-right, 0px)) !important;
+}
+
+@media (min-width: 640px) {
+  .floating-audio-container {
+    right: calc(1.5rem + env(safe-area-inset-right, 0px)) !important;
+  }
+}
+
+.floating-recenter-container,
+#btn-recenter-map {
+  bottom: calc(5.2rem + env(safe-area-inset-bottom, 0px)) !important;
+}
+
+/* Posisi default mobile untuk drawer audio modal (presisi horizontal center) */
+@media (max-width: 639px) {
+  #soundscape-drawer {
+    position: fixed !important;
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
+    bottom: calc(5.2rem + env(safe-area-inset-bottom, 0px)) !important;
+    width: calc(100vw - 2rem) !important;
+    max-width: 360px !important;
+    margin: 0 !important;
+    transform-origin: bottom center !important;
+    z-index: 45 !important;
+    animation: slideUpFadeMobile 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+  }
+}
+
+/* Pertahankan posisi desktop di pojok kanan bawah */
+@media (min-width: 640px) {
+  #soundscape-drawer {
+    position: relative !important;
+    transform-origin: bottom right !important;
+  }
+}
+
+@media (max-width: 639px) {
+  #sidebar {
+    bottom: calc(1rem + env(safe-area-inset-bottom, 0px)) !important;
+  }
+}
+
+/* Invisible Touch Target Padding (44x44px Minimum for Mobile Ergonomics) */
+#btn-toggle-rain,
+#audio-play-btn,
+#vinyl-disc,
+#btn-open-soundscape {
+  position: relative;
+}
+
+#btn-toggle-rain::after,
+#audio-play-btn::after,
+#vinyl-disc::after,
+#btn-open-soundscape::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 44px;
+  min-height: 44px;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+/* Vinyl Audio Player Animations & Halo Glow */
+.vinyl-disc {
+  transition: transform 0.3s ease, box-shadow 0.4s ease;
+  animation: spinVinyl 6s linear infinite;
+  animation-play-state: paused;
+}
+
+.vinyl-disc.playing {
+  animation-play-state: running;
+  animation: spinVinyl 6s linear infinite, vinylHaloPulse 2.8s ease-in-out infinite alternate;
+}
+
+@keyframes spinVinyl {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes vinylHaloPulse {
+  0% {
+    box-shadow: 0 0 0 2px rgba(244, 63, 94, 0.3), 0 0 10px rgba(244, 63, 94, 0.4), 0 4px 10px rgba(0, 0, 0, 0.25);
+  }
+  100% {
+    box-shadow: 0 0 0 4px rgba(244, 63, 94, 0.6), 0 0 20px rgba(244, 63, 94, 0.75), 0 6px 14px rgba(0, 0, 0, 0.35);
+  }
+}
+
+body.theme-dark .vinyl-disc.playing {
+  animation: spinVinyl 6s linear infinite, vinylHaloPulseDark 2.8s ease-in-out infinite alternate;
+}
+
+@keyframes vinylHaloPulseDark {
+  0% {
+    box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.35), 0 0 10px rgba(56, 189, 248, 0.5), 0 4px 12px rgba(0, 0, 0, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.65), 0 0 22px rgba(56, 189, 248, 0.85), 0 6px 16px rgba(0, 0, 0, 0.6);
+  }
+}
+
+/* Soundscape Lounge Drawer Styling */
+#soundscape-drawer {
+  animation: slideUpFade 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes slideUpFade {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes slideUpFadeMobile {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 12px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+}
+
+.soundscape-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
+  transition: opacity 0.2s;
+}
+
+.soundscape-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #f43f5e;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  transition: transform 0.15s ease, background-color 0.2s ease;
+}
+
+.soundscape-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.25);
+}
+
+#rain-volume-slider::-webkit-slider-thumb {
+  background: #0284c7;
+}
+
+.preset-vibe-chip {
+  cursor: pointer;
+  user-select: none;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.preset-vibe-chip:active {
+  transform: scale(0.93);
+}
+
+/* Soundscape Drawer Dark Theme Overrides */
+body.theme-dark #soundscape-drawer {
+  background: rgba(15, 23, 42, 0.92) !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  border: 1px solid rgba(56, 189, 248, 0.25) !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.85), 0 0 25px rgba(56, 189, 248, 0.1) !important;
+}
+
+body.theme-dark .soundscape-channel-card {
+  background: rgba(30, 41, 59, 0.6) !important;
+  border-color: rgba(56, 189, 248, 0.15) !important;
+}
+
+body.theme-dark .soundscape-slider {
+  background-color: rgba(51, 65, 85, 0.8) !important;
+}
+
+body.theme-dark .preset-vibe-chip {
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: #cbd5e1 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+body.theme-dark .preset-vibe-chip:hover {
+  background: rgba(56, 189, 248, 0.15) !important;
+  color: #38bdf8 !important;
+  border-color: rgba(56, 189, 248, 0.4) !important;
+}
+
+body.theme-dark #btn-open-soundscape {
+  background: rgba(30, 41, 59, 0.8) !important;
+  color: #cbd5e1 !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+body.theme-dark #btn-open-soundscape:hover {
+  background: rgba(51, 65, 85, 0.9) !important;
+  color: #38bdf8 !important;
+}
+
+/* Soundscape Drawer Sunset Theme Overrides */
+body.theme-sunset #soundscape-drawer {
+  background: rgba(30, 13, 44, 0.92) !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  border: 1px solid rgba(251, 113, 133, 0.35) !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.85), 0 0 25px rgba(244, 63, 94, 0.15) !important;
+}
+
+body.theme-sunset .soundscape-channel-card {
+  background: rgba(48, 21, 68, 0.65) !important;
+  border: 1px solid rgba(251, 113, 133, 0.3) !important;
+}
+
+body.theme-sunset .soundscape-channel-card span.text-slate-800 {
+  color: #fdf4ff !important;
+}
+
+body.theme-sunset #music-volume-label,
+body.theme-sunset #rain-volume-label {
+  color: #fde047 !important; /* Kuning hangat */
+  font-weight: 700 !important;
+}
+
+body.theme-sunset #soundscape-drawer h3 {
+  color: #fdf4ff !important;
+}
+
+body.theme-sunset #soundscape-drawer p.text-slate-500 {
+  color: #fce7f3 !important;
+}
+
+body.theme-sunset #channel-music-toggle.bg-slate-200,
+body.theme-sunset #channel-rain-toggle.bg-slate-200 {
+  background: rgba(30, 13, 44, 0.75) !important;
+  color: #fce7f3 !important;
+  border: 1px solid rgba(251, 113, 133, 0.25) !important;
+}
+
+body.theme-sunset #channel-music-toggle.bg-rose-500 {
+  background: linear-gradient(135deg, #f43f5e, #fb7185) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(254, 205, 211, 0.4) !important;
+  box-shadow: 0 0 10px rgba(244, 63, 94, 0.4) !important;
+}
+
+body.theme-sunset #channel-rain-toggle.bg-sky-500 {
+  background: linear-gradient(135deg, #0284c7, #38bdf8) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(186, 230, 253, 0.4) !important;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.4) !important;
+}
+
+body.theme-sunset .soundscape-slider {
+  background-color: rgba(68, 30, 96, 0.8) !important;
+}
+
+body.theme-sunset .soundscape-slider::-webkit-slider-thumb {
+  background: #fb7185;
+  box-shadow: 0 0 10px rgba(251, 113, 133, 0.8), 0 0 4px #fbbf24;
+}
+
+body.theme-sunset #rain-volume-slider::-webkit-slider-thumb {
+  background: #38bdf8;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.8), 0 0 4px #fbbf24;
+}
+
+body.theme-sunset .preset-vibe-chip {
+  background: rgba(48, 21, 68, 0.7) !important;
+  color: #fce7f3 !important;
+  border: 1px solid rgba(251, 113, 133, 0.25) !important;
+}
+
+body.theme-sunset .preset-vibe-chip:hover {
+  background: rgba(68, 30, 96, 0.9) !important;
+  color: #fde047 !important;
+  border-color: rgba(251, 191, 36, 0.45) !important;
+  box-shadow: 0 0 10px rgba(251, 191, 36, 0.2) !important;
+}
+
+body.theme-sunset #btn-open-soundscape {
+  background: rgba(48, 21, 68, 0.8) !important;
+  color: #fce7f3 !important;
+  border-color: rgba(251, 113, 133, 0.3) !important;
+}
+
+body.theme-sunset #btn-open-soundscape:hover {
+  background: rgba(68, 30, 96, 0.95) !important;
+  color: #fde047 !important;
+}
+
+body.theme-sunset .vinyl-disc.playing {
+  animation: spinVinyl 6s linear infinite, vinylHaloPulseSunset 2.8s ease-in-out infinite alternate;
+}
+
+@keyframes vinylHaloPulseSunset {
+  0% {
+    box-shadow: 0 0 0 2px rgba(251, 113, 133, 0.4), 0 0 12px rgba(244, 63, 94, 0.5), 0 4px 12px rgba(0, 0, 0, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.7), 0 0 24px rgba(251, 113, 133, 0.85), 0 6px 16px rgba(0, 0, 0, 0.6);
+  }
+}
+
+body.theme-sunset #audio-track-status {
+  color: #fdf4ff !important;
+}
+
+body.theme-sunset .eq-bar {
+  background: #fb7185;
+}
+
+/* Music Visualizer Bars */
+.eq-bar {
+  width: 3px;
+  background: #f43f5e;
+  border-radius: 9999px;
+  animation: eqPulse 1.2s ease-in-out infinite alternate;
+}
+
+.eq-bar:nth-child(1) { height: 12px; animation-delay: 0.1s; }
+.eq-bar:nth-child(2) { height: 18px; animation-delay: 0.4s; }
+.eq-bar:nth-child(3) { height: 8px;  animation-delay: 0.2s; }
+.eq-bar:nth-child(4) { height: 15px; animation-delay: 0.5s; }
+
+.eq-paused .eq-bar {
+  animation-play-state: paused;
+  height: 4px !important;
+}
+
+@keyframes eqPulse {
+  0% { height: 4px; }
+  50% { height: 18px; }
+  100% { height: 10px; }
+}
+
+/* Ambient Rain Canvas Overlay */
+#rain-canvas,
+.rain-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 15;
+}
+
+/* Ambient Rain Bandung Overcast Atmosphere */
+.rain-weather-active .leaflet-pane,
+.rain-weather-active #map {
+  filter: brightness(0.92) contrast(1.05) saturate(0.9);
+  -webkit-filter: brightness(0.92) contrast(1.05) saturate(0.9);
+  transition: filter 1.5s ease, -webkit-filter 1.5s ease;
+}
+
+body.theme-dark.rain-weather-active .leaflet-pane,
+body.theme-dark.rain-weather-active #map {
+  filter: brightness(0.84) contrast(1.12) saturate(0.85) !important;
+  -webkit-filter: brightness(0.84) contrast(1.12) saturate(0.85) !important;
+  transition: filter 1.5s ease, -webkit-filter 1.5s ease;
+}
+
+/* Ambient Rain Button Active State & Pulse */
+#btn-toggle-rain.active-rain {
+  background: linear-gradient(135deg, #0284c7, #38bdf8) !important;
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.7) !important;
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.6), 0 4px 10px rgba(2, 132, 199, 0.35) !important;
+  animation: rainPulseSlow 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes rainPulseSlow {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+  }
+  100% {
+    transform: scale(1.08);
+    box-shadow: 0 0 18px rgba(56, 189, 248, 0.75);
+  }
+}
+
+/* Shake Animation for Quiz Error */
+.shake-animation {
+  animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes shake {
+  10%, 90% { transform: translate3d(-2px, 0, 0); }
+  20%, 80% { transform: translate3d(4px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
+  40%, 60% { transform: translate3d(6px, 0, 0); }
+}
+
+/* Soft Floating Animations */
+@keyframes softFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.animate-soft-float {
+  animation: softFloat 4s ease-in-out infinite;
+}
+
+/* Constellation Line Overlay Layer in Map */
+.constellation-svg-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 400;
+}
+
+/* Hidden Word Clues Styling (High Contrast & Legible) */
+.hidden-word-clue {
+  opacity: 0.9;
+  cursor: pointer;
+  user-select: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(4px);
+  padding: 3px 10px;
+  border-radius: 9999px;
+  border: 1.5px dashed rgba(245, 158, 11, 0.8);
+  font-family: 'Caveat', cursive;
+  font-size: 14px;
+  font-weight: 700;
+  color: #78350f;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.hidden-word-clue:hover {
+  opacity: 1;
+  transform: scale(1.1) translateY(-2px);
+  background: rgba(254, 243, 199, 1);
+  border-color: #f59e0b;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.35), 0 0 10px rgba(251, 191, 36, 0.5);
+  color: #92400e;
+}
+
+.hidden-word-clue:active {
+  transform: scale(0.88) !important;
+  transition: transform 0.1s ease;
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.7) !important;
+}
+
+.hidden-word-clue.clue-collected {
+  opacity: 0.8;
+  border-style: solid;
+  border-color: rgba(16, 185, 129, 0.6);
+  background: rgba(236, 253, 245, 0.9);
+  color: #065f46;
+  cursor: default;
+  pointer-events: none;
+  transform: none !important;
+}
+
+body.theme-dark .hidden-word-clue,
+.hidden-word-clue-dark {
+  background: rgba(30, 41, 59, 0.85) !important;
+  border: 1.5px dashed rgba(251, 191, 36, 0.75) !important;
+  color: #fef08a !important;
+  opacity: 0.9 !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+body.theme-dark .hidden-word-clue:hover,
+.hidden-word-clue-dark:hover {
+  background: rgba(51, 65, 85, 0.95) !important;
+  border-color: #fde047 !important;
+  color: #ffffff !important;
+  opacity: 1 !important;
+  box-shadow: 0 0 14px rgba(251, 191, 36, 0.5) !important;
+}
+
+body.theme-dark .hidden-word-clue.clue-collected {
+  opacity: 0.85 !important;
+  background: rgba(6, 78, 59, 0.6) !important;
+  border-color: rgba(52, 211, 153, 0.6) !important;
+  color: #6ee7b7 !important;
+}
+
+/* Floating Sparkle Particles */
+.clue-sparkle-particle {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  font-size: 16px;
+  color: #fbbf24;
+  animation: floatSparkle 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes floatSparkle {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(0.6) rotate(0deg);
+  }
+  50% {
+    opacity: 0.9;
+    transform: translate(var(--tx, 0px), var(--ty, -30px)) scale(1.3) rotate(180deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--tx, 0px), var(--ty, -60px)) scale(0.4) rotate(360deg);
+  }
+}
+
+/* Toast Notifications */
+#toast-container {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.toast-item {
+  pointer-events: auto;
+  background: rgba(15, 23, 42, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #ffffff;
+  padding: 10px 18px;
+  border-radius: 9999px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.15);
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: toastIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.toast-item.toast-out {
+  opacity: 0;
+  transform: translateY(-12px) scale(0.95);
+}
+
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateY(-15px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Secret Puzzle Slots & Chips */
+.puzzle-slot {
+  min-width: 54px;
+  height: 42px;
+  border: 2px dashed #cbd5e1;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+  background: rgba(248, 250, 252, 0.6);
+  font-family: 'Caveat', cursive;
+  font-size: 17px;
+  font-weight: 700;
+  color: #334155;
+  cursor: pointer;
+  padding: 0 8px;
+}
+
+.puzzle-slot.slot-filled {
+  border-style: solid;
+  border-color: #f59e0b;
+  background: #fffbeb;
+  color: #b45309;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.15);
+}
+
+.puzzle-slot.slot-filled:hover {
+  transform: scale(0.96);
+  border-color: #ef4444;
+  color: #dc2626;
+  background: #fef2f2;
+}
+
+.puzzle-word-chip {
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #fef3c7, #fde68a);
+  border: 1px solid #f59e0b;
+  color: #92400e;
+  font-family: 'Caveat', cursive;
+  font-size: 17px;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(245, 158, 11, 0.2);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  user-select: none;
+}
+
+.puzzle-word-chip:hover {
+  transform: scale(1.08) translateY(-2px);
+  box-shadow: 0 6px 14px rgba(245, 158, 11, 0.35);
+  background: linear-gradient(135deg, #fde68a, #fcd34d);
+}
+
+.puzzle-word-chip:active {
+  transform: scale(0.9) !important;
+  transition: transform 0.1s ease;
+}
+
+/* Celestial Moonlight Reveal Glow */
+.sunset-glow-card {
+  border: 1px solid rgba(253, 224, 71, 0.35) !important;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 
+              0 0 40px rgba(192, 132, 252, 0.35), 
+              0 0 60px rgba(253, 224, 71, 0.2), 
+              inset 0 0 40px rgba(168, 85, 247, 0.15) !important;
+}
+
+/* Luminous Full Moon Orb with Ethereal Starlight Aura */
+.sunset-sun-orb {
+  width: 160px;
+  height: 160px;
+  background: radial-gradient(circle at 45% 45%, 
+    #ffffff 0%, 
+    #fef08a 18%, 
+    #f3e8ff 38%, 
+    rgba(192, 132, 252, 0.6) 58%, 
+    rgba(129, 140, 248, 0.2) 78%, 
+    transparent 90%
+  ) !important;
+  border-radius: 50%;
+  filter: drop-shadow(0 0 25px rgba(254, 240, 138, 0.8)) drop-shadow(0 0 50px rgba(168, 85, 247, 0.55));
+  animation: moonlightPulse 5s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes moonlightPulse {
+  0% { transform: scale(0.92) translateY(0); opacity: 0.85; }
+  100% { transform: scale(1.1) translateY(-8px); opacity: 1; }
+}
+
+/* Poetic Golden Moon Quote Header Glow */
+.quote-golden-glow {
+  color: #fef08a !important;
+  text-shadow: 0 0 14px rgba(254, 240, 138, 0.75), 0 0 30px rgba(251, 191, 36, 0.4);
+}
+
+/* Floating Stardust Particles (Pure CSS Keyframes) */
+.floating-dust-particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, #ffffff 20%, rgba(254, 240, 138, 0.9) 60%, transparent 100%);
+  box-shadow: 0 0 8px #ffffff, 0 0 14px rgba(253, 224, 71, 0.8), 0 0 20px rgba(192, 132, 252, 0.5);
+  opacity: 0;
+}
+
+.dust-p1 { width: 4px; height: 4px; top: 15%; left: 18%; animation: floatDust1 7s ease-in-out infinite 0.2s; }
+.dust-p2 { width: 6px; height: 6px; top: 25%; right: 22%; animation: floatDust2 8.5s ease-in-out infinite 1.5s; }
+.dust-p3 { width: 3px; height: 3px; top: 45%; left: 12%; animation: floatDust3 6s ease-in-out infinite 0.8s; }
+.dust-p4 { width: 5px; height: 5px; top: 60%; right: 15%; animation: floatDust1 9s ease-in-out infinite 2.2s; }
+.dust-p5 { width: 4px; height: 4px; top: 75%; left: 24%; animation: floatDust2 7.5s ease-in-out infinite 3s; }
+.dust-p6 { width: 3px; height: 3px; top: 35%; right: 30%; animation: floatDust3 8s ease-in-out infinite 1s; }
+.dust-p7 { width: 5px; height: 5px; top: 80%; right: 28%; animation: floatDust1 6.8s ease-in-out infinite 2.7s; }
+.dust-p8 { width: 4px; height: 4px; top: 20%; left: 45%; animation: floatDust2 9.2s ease-in-out infinite 0.5s; }
+
+@keyframes floatDust1 {
+  0% { transform: translate(0, 0) scale(0.6); opacity: 0; }
+  25% { opacity: 0.85; }
+  50% { transform: translate(14px, -28px) scale(1.2); opacity: 0.9; }
+  75% { opacity: 0.5; }
+  100% { transform: translate(-10px, -55px) scale(0.4); opacity: 0; }
+}
+
+@keyframes floatDust2 {
+  0% { transform: translate(0, 0) scale(0.5); opacity: 0; }
+  30% { opacity: 0.9; }
+  60% { transform: translate(-18px, -35px) scale(1.15); opacity: 0.8; }
+  85% { opacity: 0.4; }
+  100% { transform: translate(8px, -65px) scale(0.3); opacity: 0; }
+}
+
+@keyframes floatDust3 {
+  0% { transform: translate(0, 0) scale(0.8); opacity: 0; }
+  40% { opacity: 0.95; }
+  70% { transform: translate(10px, -24px) scale(1); opacity: 0.7; }
+  100% { transform: translate(-6px, -48px) scale(0.5); opacity: 0; }
+}
+
+/* Vintage Envelope & Wax Seal */
+.vintage-envelope-container {
+  position: relative;
+  background: linear-gradient(145deg, #fffbeb 0%, #fef3c7 40%, #fde68a 100%);
+  border-radius: 16px;
+  border: 1px solid rgba(217, 119, 6, 0.35);
+  box-shadow: 0 15px 35px -8px rgba(120, 53, 15, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  perspective: 600px;
+  overflow: visible;
+}
+
+.envelope-body {
+  position: relative;
+  background: linear-gradient(to bottom, #fef9c3, #fef08a);
+  border-radius: 14px;
+}
+
+.envelope-flap-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(135deg, #fef08a 0%, #fde047 100%);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: top center;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+}
+
+.vintage-envelope-container.envelope-open .envelope-flap-top {
+  transform: rotateX(180deg);
+  z-index: 1;
+}
+
+/* Golden Wax Seal Button */
+.wax-seal-badge {
+  background: radial-gradient(circle at 35% 35%, #fbbf24 0%, #d97706 50%, #92400e 100%);
+  border: 2px solid rgba(254, 240, 138, 0.8);
+  box-shadow: 0 8px 20px rgba(180, 83, 9, 0.5), 0 0 15px rgba(251, 191, 36, 0.6), inset 0 2px 4px rgba(255, 255, 255, 0.4);
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: waxSealGlow 2.5s ease-in-out infinite alternate;
+}
+
+.wax-seal-badge:hover {
+  transform: scale(1.1) rotate(4deg);
+  box-shadow: 0 12px 28px rgba(180, 83, 9, 0.65), 0 0 22px rgba(251, 191, 36, 0.85);
+}
+
+.wax-seal-inner {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+.wax-seal-badge.seal-cracking {
+  animation: sealFractureShake 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) both, waxSealCrackedGlow 1.2s ease-in-out infinite alternate;
+  border-color: #fef08a;
+  box-shadow: 0 0 24px rgba(251, 191, 36, 0.9), 0 0 12px rgba(244, 63, 94, 0.8), inset 0 0 10px rgba(254, 240, 138, 0.9);
+}
+
+.wax-seal-badge.seal-cracking::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, transparent 46%, #fef08a 48%, #ffffff 50%, #fef08a 52%, transparent 54%),
+              linear-gradient(-35deg, transparent 47%, #fbbf24 49%, #ffffff 50%, #fbbf24 51%, transparent 53%);
+  pointer-events: none;
+}
+
+.wax-seal-badge.seal-broken {
+  transform: scale(1.35) rotate(15deg);
+  opacity: 0;
+  transition: all 0.4s ease-out;
+}
+
+.wax-seal-badge.seal-shatter {
+  transform: scale(1.4) rotate(22deg);
+  opacity: 0;
+  filter: blur(4px);
+  transition: all 0.35s ease-out;
+}
+
+/* Wax Splinter Physical Shards */
+.wax-splinter-shard {
+  position: fixed;
+  pointer-events: none;
+  z-index: 99999;
+  width: 14px;
+  height: 14px;
+  background: linear-gradient(135deg, #fbbf24 0%, #d97706 60%, #92400e 100%);
+  clip-path: polygon(50% 0%, 100% 70%, 75% 100%, 0% 80%, 20% 20%);
+  box-shadow: 0 0 8px rgba(251, 191, 36, 0.9);
+  animation: waxShardBurst 0.75s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes sealFractureShake {
+  10%, 90% { transform: scale(1.06) translate3d(-2px, 0, 0) rotate(-3deg); }
+  20%, 80% { transform: scale(1.08) translate3d(3px, 0, 0) rotate(4deg); }
+  30%, 50%, 70% { transform: scale(1.1) translate3d(-3px, 0, 0) rotate(-2deg); }
+  40%, 60% { transform: scale(1.08) translate3d(2px, 0, 0) rotate(2deg); }
+  100% { transform: scale(1.08) rotate(1deg); }
+}
+
+@keyframes waxSealCrackedGlow {
+  0% { box-shadow: 0 8px 20px rgba(180, 83, 9, 0.6), 0 0 16px rgba(251, 191, 36, 0.7); }
+  100% { box-shadow: 0 12px 28px rgba(180, 83, 9, 0.8), 0 0 30px rgba(254, 240, 138, 0.95); }
+}
+
+@keyframes waxShardBurst {
+  0% {
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(calc(-50% + var(--tx, 0px)), calc(-50% + var(--ty, 0px))) scale(0.2) rotate(var(--rot, 180deg));
+    opacity: 0;
+  }
+}
+
+@keyframes waxSealGlow {
+  0% { box-shadow: 0 8px 20px rgba(180, 83, 9, 0.4), 0 0 12px rgba(251, 191, 36, 0.4); }
+  100% { box-shadow: 0 10px 24px rgba(180, 83, 9, 0.6), 0 0 22px rgba(251, 191, 36, 0.8); }
+}
+
+/* Wax Seal Hint Text & Container (High Contrast & Legible) */
+#wax-seal-hint-container {
+  background: rgba(15, 23, 42, 0.55) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4) !important;
+  animation: gentlePulseHint 2.4s ease-in-out infinite alternate;
+  will-change: transform, opacity;
+}
+
+.wax-seal-hint {
+  color: #fce7f3 !important; /* text-pink-100 */
+  font-weight: 600 !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8) !important;
+}
+
+body.theme-dark .wax-seal-hint,
+body.theme-sunset .wax-seal-hint {
+  color: #fdf2f8 !important; /* text-pink-50 */
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9) !important;
+}
+
+@keyframes gentlePulseHint {
+  0% {
+    opacity: 0.88;
+    transform: scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+}
+
+/* Special Mini Polaroid Card */
+.secret-mini-polaroid {
+  background: #ffffff;
+  padding: 10px 10px 14px 10px;
+  border-radius: 6px;
+  box-shadow: 0 12px 30px -5px rgba(0, 0, 0, 0.45), 0 4px 12px rgba(0, 0, 0, 0.25);
+  position: relative;
+  max-width: 270px;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+}
+
+.secret-polaroid-tape {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-1.5deg);
+  width: 55px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(2px);
+  border: 1px dashed rgba(203, 213, 225, 0.6);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+  z-index: 20;
+}
+
+.secret-polaroid-img-wrapper {
+  overflow: hidden;
+  border-radius: 4px;
+  background: #0f172a;
+}
+
+.secret-polaroid-img-wrapper img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: center 85%;
+  filter: contrast(1.05) saturate(1.1) brightness(0.98);
+  transition: transform 0.4s ease;
+}
+
+.secret-mini-polaroid:hover .secret-polaroid-img-wrapper img {
+  transform: scale(1.03);
+}
+
+.quote-golden-glow {
+  color: #fef08a;
+  text-shadow: 0 0 10px rgba(251, 191, 36, 0.7), 0 0 25px rgba(245, 158, 11, 0.4), 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.sunset-glow-card button[onclick*="closeSecretPuzzleModal"] {
+  color: rgba(254, 240, 138, 0.75) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+.sunset-glow-card button[onclick*="closeSecretPuzzleModal"]:hover {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* ==========================================================================
+   UI/UX POLISH: Overscroll Containment & Dynamic Viewport Heights (dvh)
+   ========================================================================== */
+#polaroid-modal,
+#secret-puzzle-modal,
+#quiz-modal,
+#welcome-modal,
+.memory-modal {
+  min-height: 100vh;
+  min-height: 100dvh;
+  overscroll-behavior: contain;
+}
+
+.polaroid-frame {
+  max-height: 90vh;
+  max-height: 90dvh;
+  overscroll-behavior: contain;
+}
+
+#puzzle-modal-card {
+  max-height: 90vh;
+  max-height: 90dvh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  border-radius: 1.5rem;
+  scrollbar-gutter: stable;
+  position: relative;
+
+  /* Gradasi Ungu Gelap Elegan & Kosmik (Deep Midnight Violet 💜) */
+  background: 
+    radial-gradient(circle at 85% 15%, rgba(147, 51, 234, 0.35) 0%, transparent 60%),
+    radial-gradient(circle at 15% 85%, rgba(126, 34, 206, 0.3) 0%, transparent 55%),
+    linear-gradient(160deg, #180929 0%, #220b3b 40%, #150624 100%) !important;
+  
+  border: 1px solid rgba(192, 132, 252, 0.3) !important; /* border ungu lavender lembut */
+  box-shadow: 0 25px 60px rgba(10, 3, 20, 0.9),
+              0 0 35px rgba(168, 85, 247, 0.25),
+              inset 0 0 30px rgba(192, 132, 252, 0.08) !important;
+}
+
+/* Dekorasi Celestial / Overlay Rasi Bintang & Lingkaran Astronomis */
+#puzzle-modal-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.75; /* Kontras nyata agar rasi bintang terlihat hidup */
+  border-radius: 1.5rem;
+
+  /* Pola SVG rasi bintang tajam, koordinat astronomis, dan bintang berkilau */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280' viewBox='0 0 280 280'%3E%3Cdefs%3E%3CradialGradient id='g1' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23ffffff'/%3E%3Cstop offset='45%25' stop-color='%23c084fc' stop-opacity='0.9'/%3E%3Cstop offset='100%25' stop-color='%237e22ce' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx='140' cy='140' r='75' fill='none' stroke='rgba(192,132,252,0.3)' stroke-width='0.8' stroke-dasharray='3,4'/%3E%3Ccircle cx='140' cy='140' r='120' fill='none' stroke='rgba(253,224,71,0.25)' stroke-width='0.6' stroke-dasharray='2,5'/%3E%3Cpolyline points='30,40 85,70 150,35 220,80' fill='none' stroke='rgba(216,180,254,0.5)' stroke-width='1'/%3E%3Cpolyline points='65,165 130,205 195,175 245,230' fill='none' stroke='rgba(253,224,71,0.45)' stroke-width='1'/%3E%3Cline x1='85' y1='70' x2='65' y2='165' stroke='rgba(192,132,252,0.3)' stroke-width='0.75' stroke-dasharray='2,3'/%3E%3Cline x1='150' y1='35' x2='195' y2='175' stroke='rgba(192,132,252,0.3)' stroke-width='0.75' stroke-dasharray='2,3'/%3E%3Ccircle cx='30' cy='40' r='2.5' fill='%23ffffff'/%3E%3Ccircle cx='85' cy='70' r='2.8' fill='%23fef08a'/%3E%3Ccircle cx='150' cy='35' r='3.2' fill='%23ffffff'/%3E%3Ccircle cx='150' cy='35' r='8' fill='url(%23g1)'/%3E%3Cpath d='M150,29 L152,35 L158,35 L153,38 L155,44 L150,40 L145,44 L147,38 L142,35 L148,35 Z' fill='%23ffffff'/%3E%3Ccircle cx='220' cy='80' r='2.2' fill='%23c084fc'/%3E%3Ccircle cx='65' cy='165' r='2.5' fill='%23fde047'/%3E%3Ccircle cx='130' cy='205' r='3.5' fill='%23ffffff'/%3E%3Ccircle cx='130' cy='205' r='9' fill='url(%23g1)'/%3E%3Cpath d='M130,198 L132,205 L139,205 L133,208 L136,215 L130,211 L124,215 L127,208 L121,205 L128,205 Z' fill='%23fef08a'/%3E%3Ccircle cx='195' cy='175' r='2.8' fill='%2393c5fd'/%3E%3Ccircle cx='245' cy='230' r='2.2' fill='%23ffffff'/%3E%3Ccircle cx='20' cy='110' r='1.5' fill='%23ffffff' opacity='0.85'/%3E%3Ccircle cx='55' cy='245' r='1.2' fill='%23fef08a' opacity='0.8'/%3E%3Ccircle cx='110' cy='120' r='1.6' fill='%23ffffff' opacity='0.9'/%3E%3Ccircle cx='170' cy='110' r='1.2' fill='%23c084fc' opacity='0.75'/%3E%3Ccircle cx='250' cy='25' r='1.8' fill='%23ffffff' opacity='0.9'/%3E%3Ccircle cx='265' cy='130' r='1.4' fill='%23fde047' opacity='0.85'/%3E%3Ccircle cx='190' cy='255' r='1.2' fill='%23ffffff' opacity='0.8'/%3E%3Ccircle cx='10' cy='200' r='1.5' fill='%23e0e7ff' opacity='0.85'/%3E%3C/svg%3E");
+  background-size: 280px 280px;
+  background-position: center;
+}
+
+/* Memberikan efek ornamen pendar nebula, bulan, dan cahaya kosmik di dalam kartu */
+#puzzle-modal-card .space-overlay {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 240px;
+  height: 240px;
+  background: radial-gradient(circle, rgba(224, 231, 255, 0.28) 0%, rgba(192, 132, 252, 0.18) 35%, rgba(99, 102, 241, 0.08) 60%, transparent 80%);
+  pointer-events: none;
+  z-index: 1;
+  border-top-right-radius: 1.5rem;
+  filter: blur(10px);
+}
+
+/* Memastikan stage konten dan kontainer anak tembus pandang tanpa background penutup */
+#puzzle-modal-card #puzzle-assembly-content,
+#puzzle-modal-card #puzzle-envelope-stage,
+#puzzle-modal-card #puzzle-reveal-content {
+  background: transparent !important;
+}
+
+/* Kustomisasi scrollbar agar ramping, melengkung rapi di dalam kartu */
+#puzzle-modal-card::-webkit-scrollbar {
+  width: 6px;
+}
+
+#puzzle-modal-card::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 1rem 0; /* memberi jarak dari sudut atas & bawah agar tidak menabrak radius */
+}
+
+#puzzle-modal-card::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 9999px;
+}
+
+#puzzle-modal-card::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+/* Penyesuaian kontras slot kata di dalam kartu celestial */
+#puzzle-modal-card .puzzle-slot {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.18);
+  color: #f1f5f9;
+}
+
+#puzzle-modal-card .puzzle-slot.slot-filled {
+  border-color: #f59e0b;
+  background: rgba(245, 158, 11, 0.15);
+  color: #fef08a;
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.25);
+}
+
+.custom-scroll,
+#memory-list,
+.polaroid-image-container {
+  overscroll-behavior: contain;
+}
+
+/* ==========================================================================
+   UI/UX POLISH: Cursor Pointer Consistency for Desktop Interactivity
+   ========================================================================== */
+.puzzle-slot,
+.puzzle-word-chip,
+.puzzle-word-item,
+.wax-seal-badge,
+.hidden-word-clue,
+.filter-chip,
+.soundscape-slider,
+#vinyl-disc,
+#audio-play-btn,
+#btn-toggle-rain,
+#btn-explore-map,
+.soundscape-channel-card button {
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   CONSTELLATION DUAL-LAYER POLYLINE ANIMATIONS
+   ========================================================================== */
+
+/* Layer 1: Ambient Glow Berdenyut Lembut */
+.constellation-glow-layer {
+  filter: drop-shadow(0 0 6px rgba(244, 63, 94, 0.7));
+  animation: cosmicGlowPulse 3s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+body.theme-dark .constellation-glow-layer,
+.dark-tiles .constellation-glow-layer {
+  filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.8));
+}
+
+/* Layer 2: Core Stardust Trail Mengalir Tanpa Henti */
+.constellation-trail-core {
+  animation: stardustFlow 20s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes cosmicGlowPulse {
+  0% {
+    opacity: 0.35;
+  }
+  100% {
+    opacity: 0.75;
+  }
+}
+
+@keyframes stardustFlow {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -1000;
+  }
+}
+
+/* ==========================================================================
+   COSMIC TWINKLE & STARLIGHT SPARKLE ANIMATION (HEADER & STATS BADGE)
+   ========================================================================== */
+.header-star-sparkle {
+  display: inline-block;
+  animation: celestialTwinkle 3.2s ease-in-out infinite alternate;
+  will-change: transform, filter, opacity;
+}
+
+@keyframes celestialTwinkle {
+  0% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.85;
+    filter: drop-shadow(0 0 2px rgba(99, 102, 241, 0.4));
+  }
+  50% {
+    transform: scale(1.25) rotate(14deg);
+    opacity: 1;
+    filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.85));
+  }
+  100% {
+    transform: scale(0.95) rotate(-8deg);
+    opacity: 0.85;
+    filter: drop-shadow(0 0 5px rgba(244, 63, 94, 0.6));
+  }
+}
+
+/* ==========================================================================
+   AMBIENT SOUND WAVE RIPPLE ANIMATION (AUDIO PLAYER CONTROLS)
+   ========================================================================== */
+.ambient-ripple-active {
+  position: relative;
+}
+
+.ambient-ripple-active::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 9999px;
+  border: 1.5px solid rgba(244, 63, 94, 0.7);
+  animation: soundWaveRipple 2.2s cubic-bezier(0.2, 0.8, 0.4, 1) infinite;
+  pointer-events: none;
+  z-index: 5;
+}
+
+body.theme-dark .ambient-ripple-active::before {
+  border-color: rgba(56, 189, 248, 0.75);
+}
+
+#btn-toggle-rain.ambient-ripple-active::before {
+  border-color: rgba(56, 189, 248, 0.85);
+}
+
+@keyframes soundWaveRipple {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+/* Celestial Star Dust Cursor Particles (Desktop Only) */
+.star-dust-particle {
+  position: fixed;
+  pointer-events: none;
+  z-index: 99999;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  transform: translate(-50%, -50%) scale(1);
+  animation: starDustFade 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  filter: drop-shadow(0 0 3px rgba(251, 113, 133, 0.7));
+  user-select: none;
+}
+
+@keyframes starDustFade {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--tx, 0px)), calc(-50% + var(--ty, 0px))) scale(0.2) rotate(45deg);
+  }
+}
+
+@media (pointer: coarse) {
+  .star-dust-particle {
+    display: none !important;
+  }
+}

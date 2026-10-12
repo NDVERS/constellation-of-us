@@ -1,0 +1,8 @@
+# Node & Scratch files
+node_modules/
+scratch/
+.gemini/
+
+# OS metadata
+.DS_Store
+Thumbs.db

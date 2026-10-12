@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <!-- Deep Twilight / Midnight Sunset Gradient -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="50%" stop-color="#31102f" />
+      <stop offset="100%" stop-color="#451a23" />
+    </linearGradient>
+
+    <!-- Golden Star Radiant Gradient -->
+    <linearGradient id="star-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fffbeb" />
+      <stop offset="40%" stop-color="#fde047" />
+      <stop offset="100%" stop-color="#f59e0b" />
+    </linearGradient>
+
+    <!-- Warm Amber Glow Filter -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Circular Outer Disc -->
+  <circle cx="32" cy="32" r="30" fill="url(#bg-grad)" stroke="#f59e0b" stroke-width="1.5" stroke-opacity="0.4" />
+
+  <!-- Orbit Ring / Constellation Path -->
+  <ellipse cx="32" cy="32" rx="22" ry="10" fill="none" stroke="#fbbf24" stroke-width="1" stroke-dasharray="2, 3" stroke-opacity="0.6" transform="rotate(-25 32 32)" />
+
+  <!-- Minor Background Stars -->
+  <circle cx="16" cy="20" r="1.2" fill="#fde047" opacity="0.8" />
+  <circle cx="48" cy="44" r="1.2" fill="#fde047" opacity="0.8" />
+  <circle cx="46" cy="18" r="0.8" fill="#ffffff" opacity="0.6" />
+  <circle cx="18" cy="46" r="0.8" fill="#ffffff" opacity="0.6" />
+
+  <!-- Central 4-Point Constellation Star ✦ -->
+  <g filter="url(#glow)">
+    <path d="M32 10 C32 23 23 32 10 32 C23 32 32 41 32 54 C32 41 41 32 54 32 C41 32 32 23 32 10 Z" fill="url(#star-grad)" />
+    <!-- Center Core Glow -->
+    <circle cx="32" cy="32" r="3" fill="#ffffff" />
+  </g>
+</svg>
