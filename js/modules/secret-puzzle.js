@@ -743,7 +743,7 @@ class SecretPuzzleController {
     if (modal) {
       const img = document.getElementById("original-letter-img");
       if (img) {
-        img.src = "assets/images/surat-asli-ayumi-keira.jpg?v=2";
+        img.src = "assets/images/surat-asli-ayumi-keira.webp?v=2";
       }
       modal.classList.remove("hidden");
       modal.classList.add("flex");

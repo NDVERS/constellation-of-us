@@ -31,7 +31,7 @@ const SidebarTemplate = {
    */
   buildMemoryCard(memory, index, isClueCollected, formattedDate, isUnlocked) {
     const isLocked = isUnlocked !== undefined ? !isUnlocked : (memory.isLocked !== false);
-    const thumbUrl = (Array.isArray(memory.photos) && memory.photos[0]?.url) || memory.image || "assets/images/og-preview.jpg";
+    const thumbUrl = (Array.isArray(memory.photos) && memory.photos[0]?.url) || memory.image || "assets/images/og-preview.webp";
     const locationStr = memory.location || memory.locationName || "";
 
     return `
@@ -51,7 +51,7 @@ const SidebarTemplate = {
               class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 ${isLocked ? "blur-xs brightness-75" : ""}"
               loading="lazy"
               decoding="async"
-              onerror="this.src='assets/images/og-preview.jpg'"
+              onerror="this.src='assets/images/og-preview.webp'"
             />
             ${
               isLocked

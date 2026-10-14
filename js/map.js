@@ -26,10 +26,12 @@ class MemoryMap {
   init(defaultCenter = [-6.8950, 107.5680], defaultZoom = 13) {
     if (this.map) return;
 
-    // Create Leaflet instance with smooth animations
+    // Create Leaflet instance with smooth animations and constrained zoom levels
     this.map = L.map(this.containerId, {
       center: defaultCenter,
       zoom: defaultZoom,
+      minZoom: 11,
+      maxZoom: 18,
       zoomControl: false,
       attributionControl: false
     });
@@ -44,7 +46,10 @@ class MemoryMap {
     const initialAttribution = isDark ? TILE_ATTRIBUTIONS.dark : TILE_ATTRIBUTIONS.light;
 
     this.tileLayer = L.tileLayer(initialUrl, {
-      maxZoom: 19,
+      minZoom: 11,
+      maxZoom: 18,
+      updateWhenIdle: true,
+      keepBuffer: 2,
       attribution: initialAttribution
     }).addTo(this.map);
 

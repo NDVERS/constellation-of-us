@@ -17,7 +17,7 @@
       "purpose": "any maskable"
     },
     {
-      "src": "assets/images/og-preview.jpg",
+      "src": "assets/images/og-preview.webp",
       "sizes": "1200x630",
       "type": "image/jpeg",
       "purpose": "any"

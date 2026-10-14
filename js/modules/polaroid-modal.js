@@ -589,24 +589,24 @@ class PolaroidModalController {
     if (photoClueContainer) {
       let photoClue = null;
 
-      // 1. Ciwalk: Clue "moon" ONLY on Slide 8 (index 7: ciwalk-jco.jpg)
+      // 1. Ciwalk: Clue "moon" ONLY on Slide 8 (index 7: ciwalk-jco.webp)
       if (
         (this.currentMemory?.id === "memory-ciwalk-bandung" || this.currentMemory?.id === "mem-ciwalk") &&
         (this.currentGalleryIndex === 7 || photoUrl.includes("ciwalk-jco"))
       ) {
         photoClue = "moon";
       }
-      // 2. Milky Verse: Clue "beautiful," ONLY on Slide 1 (index 0: milkyverse-lempar-sasaran.jpg)
+      // 2. Milky Verse: Clue "beautiful," ONLY on Slide 1 (index 0: milkyverse-lempar-sasaran.webp)
       else if (
         (this.currentMemory?.id === "memory-milkyverse-ramayana" || this.currentMemory?.id === "mem-milkyverse") &&
-        (this.currentGalleryIndex === 0 || photoUrl.includes("milkyverse-lempar-sasaran.jpg"))
+        (this.currentGalleryIndex === 0 || photoUrl.includes("milkyverse-lempar-sasaran.webp"))
       ) {
         photoClue = "beautiful,";
       }
-      // 3. The Upperside: Clue "isn't it?" ONLY on Slide 12 (index 11: upperside-citylight-view.jpg)
+      // 3. The Upperside: Clue "isn't it?" ONLY on Slide 12 (index 11: upperside-citylight-view.webp)
       else if (
         (this.currentMemory?.id === "memory-the-upperside-cimall" || this.currentMemory?.id === "mem-upperside") &&
-        (this.currentGalleryIndex === 11 || photoUrl.includes("upperside-citylight-view.jpg"))
+        (this.currentGalleryIndex === 11 || photoUrl.includes("upperside-citylight-view.webp"))
       ) {
         photoClue = "isn't it?";
       }
