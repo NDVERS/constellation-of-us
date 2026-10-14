@@ -21,6 +21,14 @@ body {
   font-family: 'Caveat', 'Comic Sans MS', 'Bradley Hand', 'Segoe Script', cursive;
 }
 
+/* Flex container utility that safely toggles with .hidden */
+.flex-toggle {
+  display: flex;
+}
+.flex-toggle.hidden {
+  display: none !important;
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;

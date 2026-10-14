@@ -33,37 +33,14 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <!-- Asynchronous Non-blocking Google Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&display=swap" media="print" onload="this.media='all'" />
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&display=swap" />
+  </noscript>
 
-  <!-- Tailwind CSS Play CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-            handwriting: ['Caveat', 'cursive'],
-          },
-          colors: {
-            rose: {
-              50: '#fff1f2',
-              100: '#ffe4e6',
-              200: '#fecdd3',
-              300: '#fda4af',
-              400: '#fb7185',
-              500: '#f43f5e',
-              600: '#e11d48',
-              700: '#be123c',
-              800: '#9f1239',
-              900: '#881337',
-            }
-          }
-        }
-      }
-    }
-  </script>
+  <!-- Compiled Static Tailwind CSS -->
+  <link rel="stylesheet" href="css/tailwind.min.css" />
 
   <!-- Leaflet.js CSS & JS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
@@ -106,7 +83,7 @@
       id="btn-recenter-map" 
       type="button"
       onclick="window.app.mapInstance && window.app.mapInstance.recenterToBandung()"
-      class="hidden flex items-center gap-1.5 min-h-11 px-4 py-2 text-xs font-bold text-slate-800 dark:text-slate-100 cursor-pointer rounded-full border border-rose-400/50 hover:border-rose-500 glass-panel shadow-lg active:scale-95 transition-all group"
+      class="hidden flex-toggle items-center gap-1.5 min-h-11 px-4 py-2 text-xs font-bold text-slate-800 dark:text-slate-100 cursor-pointer rounded-full border border-rose-400/50 hover:border-rose-500 glass-panel shadow-lg active:scale-95 transition-all group"
       title="Kembali ke Rasi Bintang Bandung"
     >
       <span class="header-star-sparkle text-rose-500 group-hover:rotate-45 transition-transform text-xs">🎯</span>
@@ -121,14 +98,14 @@
     <div class="pointer-events-auto flex items-center gap-2 sm:gap-3 min-w-0 mr-1">
       <button 
         id="btn-toggle-sidebar" 
-        class="glass-panel w-10 h-10 sm:w-11 sm:h-11 rounded-2xl hover:bg-white text-slate-700 hover:text-rose-500 shadow-sm active:scale-95 transition-all flex items-center justify-center flex-shrink-0"
+        class="glass-panel w-10 h-10 sm:w-11 sm:h-11 rounded-2xl hover:bg-white text-slate-700 hover:text-rose-500 shadow-sm active:scale-95 transition-all flex items-center justify-center shrink-0"
         title="Buka / Tutup Daftar Memori"
       >
         <i data-lucide="menu" class="w-5 h-5"></i>
       </button>
 
       <div class="glass-panel px-3 sm:px-4 py-1.5 sm:py-2 rounded-2xl shadow-sm flex items-center gap-2.5 sm:gap-3 min-w-0">
-        <div class="w-7 h-7 sm:w-8 h-8 rounded-full bg-gradient-to-tr from-rose-500 via-pink-500 to-amber-400 flex items-center justify-center text-white shadow-sm shadow-rose-200 flex-shrink-0">
+        <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-tr from-rose-500 via-pink-500 to-amber-400 flex items-center justify-center text-white shadow-sm shadow-rose-200 shrink-0">
           <svg class="w-4 h-4 text-white drop-shadow-sm" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill="currentColor" d="M16 2 C16 9 23 16 30 16 C23 16 16 23 16 30 C16 23 9 16 2 16 C9 16 16 9 16 2 Z"/>
             <circle cx="16" cy="16" r="2.5" fill="#ffffff" opacity="0.95"/>
@@ -147,17 +124,17 @@
     </div>
 
     <!-- Header Right Controls: Theme Toggle & Stats Badge -->
-    <div class="pointer-events-auto flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
+    <div class="pointer-events-auto flex items-center gap-1.5 sm:gap-2 shrink-0">
       <button 
         id="btn-toggle-theme" 
-        class="glass-panel w-10 h-10 sm:w-11 sm:h-11 rounded-2xl hover:bg-white text-slate-700 shadow-sm active:scale-95 transition-all flex items-center justify-center flex-shrink-0"
+        class="glass-panel w-10 h-10 sm:w-11 sm:h-11 rounded-2xl hover:bg-white text-slate-700 shadow-sm active:scale-95 transition-all flex items-center justify-center shrink-0"
         onclick="window.app.toggleTheme()"
         title="Beralih Mode Siang / Malam"
       >
         <i id="theme-toggle-icon" data-lucide="moon" class="w-4 h-4 sm:w-4.5 sm:h-4.5 text-indigo-500"></i>
       </button>
 
-      <div id="constellation-stats" class="flex items-center gap-1.5 sm:gap-2 glass-panel px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-2xl shadow-sm flex-shrink-0">
+      <div id="constellation-stats" class="flex items-center gap-1.5 sm:gap-2 glass-panel px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-2xl shadow-sm shrink-0">
         <!-- Injected via JS -->
       </div>
     </div>
@@ -209,9 +186,9 @@
     </div>
 
     <!-- PWA Install Banner (Captured via beforeinstallprompt) -->
-    <div id="pwa-install-banner" class="hidden px-3.5 py-2.5 mx-3 mb-2 rounded-2xl bg-gradient-to-r from-rose-500/15 via-purple-500/15 to-amber-500/15 border border-rose-300/40 dark:border-rose-400/30 flex items-center justify-between gap-2 transition-all">
+    <div id="pwa-install-banner" class="hidden px-3.5 py-2.5 mx-3 mb-2 rounded-2xl bg-gradient-to-r from-rose-500/15 via-purple-500/15 to-amber-500/15 border border-rose-300/40 dark:border-rose-400/30 flex-toggle items-center justify-between gap-2 transition-all">
       <div class="flex items-center gap-2 min-w-0">
-        <span class="text-base flex-shrink-0">📱</span>
+        <span class="text-base shrink-0">📱</span>
         <div class="min-w-0">
           <p class="text-xs font-bold text-slate-800 dark:text-slate-100 truncate">Pasang di Layar Utama</p>
           <p class="text-[10px] text-slate-500 dark:text-slate-400 truncate">Akses cepat & offline</p>
@@ -221,7 +198,7 @@
         id="btn-pwa-install" 
         type="button" 
         onclick="window.app.promptPwaInstall()" 
-        class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 text-white text-xs font-bold shadow-sm active:scale-95 transition-all flex-shrink-0 cursor-pointer"
+        class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 text-white text-xs font-bold shadow-sm active:scale-95 transition-all shrink-0 cursor-pointer"
       >
         Pasang
       </button>
@@ -236,7 +213,7 @@
         id="btn-auto-tour" 
         type="button"
         onclick="window.app.startConstellationTour()"
-        class="text-xs text-rose-600 hover:text-rose-700 dark:text-sky-300 dark:hover:text-sky-200 font-bold bg-white hover:bg-rose-50 dark:bg-slate-800 dark:hover:bg-slate-700 px-3 py-1.5 rounded-full border border-rose-200/90 dark:border-sky-500/30 transition-all flex items-center gap-1.5 active:scale-95 shadow-xs flex-shrink-0"
+        class="text-xs text-rose-600 hover:text-rose-700 dark:text-sky-300 dark:hover:text-sky-200 font-bold bg-white hover:bg-rose-50 dark:bg-slate-800 dark:hover:bg-slate-700 px-3 py-1.5 rounded-full border border-rose-200/90 dark:border-sky-500/30 transition-all flex items-center gap-1.5 active:scale-95 shadow-xs shrink-0"
         title="Jelajahi kenangan rasi bintang secara otomatis"
       >
         <i data-lucide="play" class="w-3 h-3 text-rose-500 dark:text-sky-400 fill-current"></i>
@@ -513,7 +490,7 @@
       <div class="polaroid-frame relative flex flex-col p-3.5 sm:p-4 max-h-full overflow-hidden transform -rotate-1 hover:rotate-0 transition-transform duration-300">
         
         <!-- Polaroid Photo & Gallery Slider -->
-        <div class="polaroid-image-container flex-shrink-0 shadow-inner relative group">
+        <div class="polaroid-image-container shrink-0 shadow-inner relative group">
           <div id="polaroid-media-container" class="w-full h-full relative overflow-hidden flex items-center justify-center">
             <img 
               id="polaroid-img" 
@@ -552,7 +529,7 @@
             id="gallery-btn-prev" 
             type="button" 
             onclick="window.app.prevGalleryPhoto()" 
-            class="hidden absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/90 hover:bg-white text-slate-800 hover:text-rose-500 shadow-md backdrop-blur-md flex items-center justify-center transition-all active:scale-90 z-20"
+            class="hidden absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/90 hover:bg-white text-slate-800 hover:text-rose-500 shadow-md backdrop-blur-md flex-toggle items-center justify-center transition-all active:scale-90 z-20"
             title="Foto Sebelumnya (Arrow Left)"
           >
             <i data-lucide="chevron-left" class="w-5 h-5"></i>
@@ -562,7 +539,7 @@
             id="gallery-btn-next" 
             type="button" 
             onclick="window.app.nextGalleryPhoto()" 
-            class="hidden absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/90 hover:bg-white text-slate-800 hover:text-rose-500 shadow-md backdrop-blur-md flex items-center justify-center transition-all active:scale-90 z-20"
+            class="hidden absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/90 hover:bg-white text-slate-800 hover:text-rose-500 shadow-md backdrop-blur-md flex-toggle items-center justify-center transition-all active:scale-90 z-20"
             title="Foto Selanjutnya (Arrow Right)"
           >
             <i data-lucide="chevron-right" class="w-5 h-5"></i>
@@ -583,10 +560,10 @@
         <div class="flex-1 min-h-0 overflow-y-auto px-1 space-y-2 pr-1.5 custom-scroll">
           <div class="flex flex-wrap items-center justify-between gap-1.5 text-xs text-slate-500 font-medium">
             <span id="polaroid-location" class="flex items-center flex-1 min-w-36 gap-1.5 font-semibold leading-snug break-words text-slate-700">
-              <i data-lucide="map-pin" class="w-3.5 h-3.5 text-rose-500 flex-shrink-0"></i>
+              <i data-lucide="map-pin" class="w-3.5 h-3.5 text-rose-500 shrink-0"></i>
               <span id="polaroid-location-text">Location</span>
             </span>
-            <span id="polaroid-date" class="flex-shrink-0 px-2.5 py-0.5 text-xs font-bold text-rose-600 bg-rose-50 rounded-full">Date</span>
+            <span id="polaroid-date" class="shrink-0 px-2.5 py-0.5 text-xs font-bold text-rose-600 bg-rose-50 rounded-full">Date</span>
           </div>
 
           <h3 id="polaroid-title" class="text-sm sm:text-base font-bold text-slate-900 leading-snug">
@@ -615,7 +592,7 @@
         </div>
 
         <!-- Fixed Bottom Polaroid Pagination Controls -->
-        <div class="flex-shrink-0 mt-2.5 pt-2.5 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-slate-500 bg-white">
+        <div class="shrink-0 mt-2.5 pt-2.5 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-slate-500 bg-white">
           <button id="polaroid-prev" class="flex items-center gap-1.5 px-3 py-2 rounded-xl text-slate-700 hover:text-rose-600 hover:bg-slate-100 disabled:opacity-30 disabled:pointer-events-none transition-colors min-h-11 active:scale-95">
             <i data-lucide="chevron-left" class="w-4 h-4"></i> Sebelumnya
           </button>
@@ -780,8 +757,8 @@
           </div>
           
           <!-- Incomplete Clues Hint -->
-          <div id="puzzle-hint-box" class="hidden mt-3 p-2.5 bg-amber-500/15 rounded-xl border border-amber-400/30 text-xs text-amber-200 text-left flex items-start gap-1.5">
-            <i data-lucide="lightbulb" class="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5"></i>
+          <div id="puzzle-hint-box" class="hidden mt-3 p-2.5 bg-amber-500/15 rounded-xl border border-amber-400/30 text-xs text-amber-200 text-left flex-toggle items-start gap-1.5">
+            <i data-lucide="lightbulb" class="w-4 h-4 text-amber-400 shrink-0 mt-0.5"></i>
             <span id="puzzle-hint-text" class="leading-tight">Masih ada kata yang terselip di foto atau catatan perjalananmu...</span>
           </div>
         </div>
@@ -807,7 +784,7 @@
       </div>
 
       <!-- Stage 2: Vintage Envelope & Interactive Wax Seal Stage -->
-      <div id="puzzle-envelope-stage" class="hidden relative z-10 py-6 px-2 flex flex-col items-center justify-center transition-all duration-600">
+      <div id="puzzle-envelope-stage" class="hidden relative z-10 py-6 px-2 flex-toggle flex-col items-center justify-center transition-all duration-600">
         <div class="vintage-envelope-container relative mx-auto w-64 sm:w-72 h-44 sm:h-48 rounded-2xl shadow-2xl flex items-center justify-center overflow-hidden border border-amber-500/30">
           <div class="envelope-flap-top"></div>
           <div class="envelope-body-overlay"></div>
@@ -833,15 +810,15 @@
         <!-- High-Contrast Pill Bubble Container for Wax Seal Encouragement Hint -->
         <div id="wax-seal-hint-container" class="mx-auto mt-4 px-4 py-2.5 max-w-[280px] sm:max-w-[320px] text-center rounded-2xl bg-black/45 backdrop-blur-md border border-white/15 shadow-md">
           <p class="wax-seal-hint text-xs sm:text-[13px] text-pink-100 font-medium leading-relaxed drop-shadow-md flex items-center justify-center gap-1.5">
-            <span class="text-amber-300 flex-shrink-0 animate-pulse">✨</span>
+            <span class="text-amber-300 shrink-0 animate-pulse">✨</span>
             <span id="wax-seal-hint-text">Pencet segelnya bwang, ada samting buat last meet nih 😏</span>
-            <span class="text-amber-300 flex-shrink-0 animate-pulse">✨</span>
+            <span class="text-amber-300 shrink-0 animate-pulse">✨</span>
           </p>
         </div>
       </div>
 
       <!-- Stage 3: Cinematic Sunset Horizon & Special Polaroid Reveal Content -->
-      <div id="puzzle-reveal-content" class="hidden relative py-6 px-2 text-center transition-all duration-700 flex flex-col items-center justify-center">
+      <div id="puzzle-reveal-content" class="hidden relative py-6 px-2 text-center transition-all duration-700 flex-toggle flex-col items-center justify-center">
         
         <!-- Glowing Sun Orb Backdrop -->
         <div class="sunset-sun-orb absolute top-12 left-1/2 -translate-x-1/2 pointer-events-none"></div>
@@ -874,7 +851,7 @@
                 <img 
                   src="assets/images/secret-night.webp" 
                   alt="Malam Kenangan Bandung" 
-                  class="w-full aspect-[4/3] object-cover rounded-xs"
+                  class="w-full aspect-4/3 object-cover rounded-xs"
                   loading="lazy"
                   decoding="async"
                 />

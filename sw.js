@@ -12,6 +12,7 @@ const PRECACHE_ASSETS = [
   "./index.html",
   "./manifest.json",
   "./css/style.css",
+  "./css/tailwind.min.css",
   "./data/memories.json",
   "./js/app.js",
   "./js/map.js",

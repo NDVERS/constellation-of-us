@@ -82,7 +82,7 @@ class AudioPlayerController {
    */
   init() {
     this.audioPlayer = new Audio();
-    this.audioPlayer.preload = "none";
+    this.audioPlayer.preload = "metadata";
     this.audioPlayer.src = this.mixtape[this.currentTrackIndex].src;
     this.audioPlayer.loop = false;
     this.audioPlayer.volume = this.userMusicVolume;
