@@ -1171,6 +1171,56 @@ body.theme-sunset #polaroid-next {
   #sidebar {
     bottom: calc(1rem + env(safe-area-inset-bottom, 0px)) !important;
   }
+
+  /* Mobile Hardware Acceleration & GPU Fill-Rate Optimizations (e.g. Redmi 13 / Helio G91) */
+  .glass-panel,
+  .glass-panel-dark,
+  #sidebar,
+  body.theme-sunset #sidebar,
+  body.theme-dark #sidebar,
+  #soundscape-drawer,
+  body.theme-dark #soundscape-drawer,
+  body.theme-sunset #soundscape-drawer,
+  #polaroid-modal .polaroid-frame,
+  body.theme-dark #polaroid-modal .polaroid-frame,
+  #secret-puzzle-modal > div,
+  #secret-letter-modal > div,
+  #original-letter-modal > div,
+  #btn-recenter-map,
+  #floating-clue-pill,
+  #floating-audio-pill,
+  .floating-glass {
+    backdrop-filter: blur(6px) !important;
+    -webkit-backdrop-filter: blur(6px) !important;
+  }
+
+  /* Optimize modal overlay backdrops from heavy blur to solid semi-transparency */
+  #polaroid-modal,
+  #secret-puzzle-modal,
+  #secret-letter-modal,
+  #original-letter-modal,
+  #intro-modal {
+    backdrop-filter: blur(4px) !important;
+    -webkit-backdrop-filter: blur(4px) !important;
+  }
+
+  /* Simplify intense multi-layer box shadows on cards and drawers */
+  #soundscape-drawer,
+  body.theme-dark #soundscape-drawer,
+  body.theme-sunset #soundscape-drawer,
+  #sidebar,
+  body.theme-dark #sidebar,
+  body.theme-sunset #sidebar,
+  .polaroid-frame,
+  body.theme-dark .polaroid-frame {
+    box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.35) !important;
+  }
+
+  /* Hardware-accelerate modal transitions */
+  .polaroid-frame {
+    transform: translateZ(0);
+    will-change: transform, opacity;
+  }
 }
 
 /* Invisible Touch Target Padding (44x44px Minimum for Mobile Ergonomics) */

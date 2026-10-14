@@ -63,7 +63,7 @@ const PolaroidTemplate = {
       <video 
         id="polaroid-video" 
         src="${photoUrl}" 
-        autoplay 
+        preload="none" 
         loop 
         playsinline 
         controls 
@@ -480,6 +480,10 @@ class PolaroidModalController {
         video.volume = 1;
 
         const attemptPlay = () => {
+          const modal = document.getElementById("polaroid-modal");
+          const isModalOpen = modal && !modal.classList.contains("hidden");
+          if (!isModalOpen) return;
+
           video.muted = false;
           const playPromise = video.play();
           if (playPromise !== undefined) {
@@ -681,11 +685,13 @@ class PolaroidModalController {
       modal.classList.remove("flex");
     }
 
-    // Pause any active video and restore BGM volume
+    // Pause any active video, release decoder buffer, and restore BGM volume
     const video = document.getElementById("polaroid-video");
     if (video) {
       try {
         video.pause();
+        video.removeAttribute("src");
+        video.load();
       } catch (e) {}
     }
     this.restoreBgm();

@@ -4,9 +4,9 @@
  * Features safe Range Request passthrough for videos and background cache resilience.
  */
 
-const CACHE_NAME = "constellation-cache-v6";
+const CACHE_NAME = "constellation-cache-v7";
 
-// Core static assets to pre-cache on install (Images, HTML, CSS, Scripts, Data, Curated Audio - NO video files in pre-cache)
+// Core static assets to pre-cache on install (Lightweight core app shell only - NO heavy audio or gallery photos)
 const PRECACHE_ASSETS = [
   "./",
   "./index.html",
@@ -20,45 +20,7 @@ const PRECACHE_ASSETS = [
   "./js/modules/secret-puzzle.js",
   "./js/modules/polaroid-modal.js",
   "./js/modules/sidebar.js",
-  "./assets/audio/the-1975-about-you.m4a",
-  "./assets/audio/daniel-caesar-best-part.m4a",
-  "./assets/audio/cas-apocalypse.m4a",
-  "./assets/audio/banda-neira-sampai-jadi-debu.m4a",
-  "./assets/favicon.svg",
-  "./assets/images/og-preview.jpg",
-  "./assets/images/secret-night.jpg",
-  "./assets/images/surat-asli-ayumi-keira.jpg",
-  "./assets/images/paskal/paskal-1.jpg",
-  "./assets/images/paskal/paskal-spiderman.jpg",
-  "./assets/images/ciwalk/ciwalk-1.jpg",
-  "./assets/images/ciwalk/ciwalk-chikuro.jpg",
-  "./assets/images/ciwalk/ciwalk-clay.jpg",
-  "./assets/images/ciwalk/ciwalk-clay-result.jpg",
-  "./assets/images/ciwalk/ciwalk-gigglebox.jpg",
-  "./assets/images/ciwalk/ciwalk-heartwarmer.jpg",
-  "./assets/images/ciwalk/ciwalk-jco.jpg",
-  "./assets/images/ciwalk/ciwalk-kafe-fore.jpg",
-  "./assets/images/ciwalk/ciwalk-main.jpg",
-  "./assets/images/ciwalk/ciwalk-nonton.jpg",
-  "./assets/images/ciwalk/ciwalk-skywalk.jpg",
-  "./assets/images/gacoan/gacoan-padasuka-depan.jpg",
-  "./assets/images/gacoan/gacoan-kanvas-paus.jpg",
-  "./assets/images/gacoan/gacoan-mie-pedas.jpg",
-  "./assets/images/gacoan/gacoan-hoodie-biru.jpg",
-  "./assets/images/milkyverse/milkyverse-lempar-sasaran.jpg",
-  "./assets/images/upperside/upperside-sign-rooftop.jpg",
-  "./assets/images/upperside/upperside-naik-tangga.jpg",
-  "./assets/images/upperside/upperside-mrdiy-capybara.jpg",
-  "./assets/images/upperside/upperside-mrdiy-lorong.jpg",
-  "./assets/images/upperside/upperside-kado-meja.jpg",
-  "./assets/images/upperside/upperside-kado-bricks-kue.jpg",
-  "./assets/images/upperside/upperside-kado-bricks-nick.jpg",
-  "./assets/images/upperside/upperside-kado-keychain-kucing.jpg",
-  "./assets/images/upperside/upperside-kado-musicbox.jpg",
-  "./assets/images/upperside/upperside-kado-boneka-gurita.jpg",
-  "./assets/images/upperside/upperside-kado-buku-memory.jpg",
-  "./assets/images/upperside/upperside-citylight-view.jpg",
-  "./assets/images/upperside/upperside-matcha-citylight.jpg"
+  "./assets/favicon.svg"
 ];
 
 // Install Event: Pre-cache local assets safely
@@ -105,13 +67,13 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // 0. Video streaming & Range Requests: Bypass SW cache directly to browser network pipeline
-  // This prevents HTTP 206 partial content errors on iOS Safari and mobile Chrome.
+  // 0. Video streaming & Non-Audio Range Requests: Bypass SW directly to browser network pipeline
+  // Video files are streamed on demand and not stored in Cache API to avoid memory bloat.
   if (
     req.destination === "video" ||
     url.pathname.endsWith(".mp4") ||
     url.pathname.endsWith(".webm") ||
-    req.headers.has("range")
+    (req.headers.has("range") && !url.pathname.endsWith(".m4a") && req.destination !== "audio")
   ) {
     return;
   }
@@ -155,7 +117,71 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // 3. Static Assets, Images, Fonts, and CDN Libraries (Leaflet, Lucide, Tailwind, Map Tiles): Cache-First with Runtime Network fallback
+  // 3. Audio files (.m4a): Dynamic Cache-First with Range Request (206) slice support
+  // Loaded on-demand when user plays a track, then cached for offline listening.
+  if (req.destination === "audio" || url.pathname.endsWith(".m4a")) {
+    event.respondWith(
+      caches.open(CACHE_NAME).then(async (cache) => {
+        const cachedRes = await cache.match(req.url, { ignoreSearch: true });
+
+        const respondSlice = async (fullResponse, rangeStr) => {
+          const buffer = await fullResponse.arrayBuffer();
+          const match = /bytes=(\d+)-(\d+)?/.exec(rangeStr);
+          if (match) {
+            const start = parseInt(match[1], 10);
+            const end = match[2] ? parseInt(match[2], 10) : buffer.byteLength - 1;
+            const slice = buffer.slice(start, end + 1);
+            return new Response(slice, {
+              status: 206,
+              statusText: "Partial Content",
+              headers: [
+                ["Content-Range", `bytes ${start}-${end}/${buffer.byteLength}`],
+                ["Content-Type", fullResponse.headers.get("Content-Type") || "audio/mp4"],
+                ["Content-Length", slice.byteLength],
+                ["Accept-Ranges", "bytes"],
+                ["Cache-Control", "public, max-age=31536000"]
+              ]
+            });
+          }
+          return fullResponse;
+        };
+
+        const range = req.headers.get("range");
+
+        if (cachedRes) {
+          if (range) {
+            return respondSlice(cachedRes, range);
+          }
+          return cachedRes;
+        }
+
+        try {
+          // Fetch full audio stream without range to store complete 200 response in cache
+          const cleanReq = new Request(req.url, {
+            method: "GET",
+            headers: new Headers({ "Accept": "audio/*" }),
+            mode: "same-origin"
+          });
+          const networkRes = await fetch(cleanReq);
+          if (networkRes && networkRes.status === 200) {
+            await cache.put(req.url, networkRes.clone());
+            if (range) {
+              return respondSlice(networkRes, range);
+            }
+            return networkRes;
+          }
+          return networkRes;
+        } catch (err) {
+          if (cachedRes) return cachedRes;
+          throw err;
+        }
+      })
+    );
+    return;
+  }
+
+  // 4. Static Assets, Images, Fonts, and CDN Libraries: Cache-First with Runtime Network fallback
+  // Photos and gallery images are cached on-demand when viewed.
   event.respondWith(
     caches.match(req).then((cachedRes) => {
       if (cachedRes) {
@@ -174,8 +200,8 @@ self.addEventListener("fetch", (event) => {
           return networkRes;
         })
         .catch((err) => {
-          // If offline and request is an image, fallback to cached og-preview or favicon
-          if (req.destination === "image") {
+          // If offline and request is an image, fallback to cached favicon
+          if (req.destination === "image" || url.pathname.match(/\.(jpg|jpeg|png|webp|svg)$/i)) {
             return caches.match("./assets/favicon.svg");
           }
           throw err;

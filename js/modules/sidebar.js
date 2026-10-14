@@ -50,6 +50,7 @@ const SidebarTemplate = {
               alt="${memory.title}" 
               class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 ${isLocked ? "blur-xs brightness-75" : ""}"
               loading="lazy"
+              decoding="async"
               onerror="this.src='assets/images/og-preview.jpg'"
             />
             ${
