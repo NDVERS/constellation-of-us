@@ -1609,6 +1609,48 @@ body.theme-dark.rain-weather-active #map {
   z-index: 400;
 }
 
+/* Animated Celestial Constellation Lines on Map */
+.constellation-glow-layer {
+  filter: drop-shadow(0 0 5px currentColor);
+  animation: constellationPulse 3.5s ease-in-out infinite alternate;
+}
+
+.constellation-trail-core {
+  stroke-dasharray: 6 10;
+  animation: stardustFlow 16s linear infinite;
+}
+
+@keyframes constellationPulse {
+  0% {
+    opacity: 0.40;
+    filter: drop-shadow(0 0 3px currentColor);
+  }
+  50% {
+    opacity: 0.85;
+    filter: drop-shadow(0 0 8px currentColor);
+  }
+  100% {
+    opacity: 0.40;
+    filter: drop-shadow(0 0 3px currentColor);
+  }
+}
+
+@keyframes stardustFlow {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -320;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .constellation-glow-layer,
+  .constellation-trail-core {
+    animation: none !important;
+  }
+}
+
 /* Hidden Word Clues Styling (High Contrast & Legible) */
 .hidden-word-clue {
   opacity: 0.9;

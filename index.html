@@ -208,6 +208,25 @@
       <!-- Injected via JS -->
     </div>
 
+    <!-- PWA Install Banner (Captured via beforeinstallprompt) -->
+    <div id="pwa-install-banner" class="hidden px-3.5 py-2.5 mx-3 mb-2 rounded-2xl bg-gradient-to-r from-rose-500/15 via-purple-500/15 to-amber-500/15 border border-rose-300/40 dark:border-rose-400/30 flex items-center justify-between gap-2 transition-all">
+      <div class="flex items-center gap-2 min-w-0">
+        <span class="text-base flex-shrink-0">📱</span>
+        <div class="min-w-0">
+          <p class="text-xs font-bold text-slate-800 dark:text-slate-100 truncate">Pasang di Layar Utama</p>
+          <p class="text-[10px] text-slate-500 dark:text-slate-400 truncate">Akses cepat & offline</p>
+        </div>
+      </div>
+      <button 
+        id="btn-pwa-install" 
+        type="button" 
+        onclick="window.app.promptPwaInstall()" 
+        class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 text-white text-xs font-bold shadow-sm active:scale-95 transition-all flex-shrink-0 cursor-pointer"
+      >
+        Pasang
+      </button>
+    </div>
+
     <!-- Sidebar Footer with Auto-Tour Action -->
     <div id="sidebar-footer" class="sidebar-footer-container p-3 sm:p-3.5 bg-rose-50/90 dark:bg-slate-900/90 border-t border-pink-200/80 dark:border-sky-500/30 flex items-center justify-between gap-2">
       <p class="sidebar-footer-hint text-xs font-bold truncate leading-tight text-slate-800 dark:text-slate-100">
@@ -956,9 +975,21 @@
         />
       </div>
       
-      <p class="font-handwriting text-base sm:text-lg text-rose-200 mt-3 text-center">
+      <p class="font-handwriting text-base sm:text-lg text-rose-200 mt-2 text-center">
         "Surat Asli Tulisan Tangan ✦ Ayumi Keira"
       </p>
+
+      <!-- Download Button -->
+      <button 
+        id="btn-download-original-letter"
+        type="button"
+        onclick="window.app.secretPuzzle.downloadOriginalLetter()"
+        class="mt-3 px-5 py-2.5 rounded-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-rose-500 via-rose-600 to-amber-500 hover:from-rose-600 hover:to-amber-600 text-white font-semibold text-xs sm:text-sm border border-amber-300/40 shadow-lg shadow-rose-950/40 hover:scale-[1.02] active:scale-95 transition-all cursor-pointer"
+        title="Simpan file surat ke galeri perangkat"
+      >
+        <i data-lucide="download" class="w-4 h-4"></i>
+        <span>Simpan Surat ke Galeri 💌</span>
+      </button>
     </div>
   </div>
 

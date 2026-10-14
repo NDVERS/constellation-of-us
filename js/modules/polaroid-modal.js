@@ -113,7 +113,7 @@ class PolaroidModalController {
     const audioPlayer = this.app?.audioPlayer || window.app?.audioPlayer;
     if (audioPlayer && !this.isVideoDuckingActive) {
       this.isVideoDuckingActive = true;
-      audioPlayer.duckVolume(0.1, 400, true);
+      audioPlayer.duckVolume(0.15, 600, true);
     }
   }
 
@@ -124,7 +124,7 @@ class PolaroidModalController {
     const audioPlayer = this.app?.audioPlayer || window.app?.audioPlayer;
     if (audioPlayer && this.isVideoDuckingActive) {
       this.isVideoDuckingActive = false;
-      audioPlayer.restoreVolume(600);
+      audioPlayer.restoreVolume(800);
     }
   }
 

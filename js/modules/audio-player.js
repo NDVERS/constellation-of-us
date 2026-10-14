@@ -201,13 +201,24 @@ class AudioPlayerController {
 
     if (this.audioPlayer) {
       const wasPlaying = this.isPlaying;
-      this.audioPlayer.src = track.src;
-      this.audioPlayer.currentTime = 0;
 
-      if (autoPlay || wasPlaying) {
-        this.play();
+      if (wasPlaying && (autoPlay || wasPlaying)) {
+        // Smooth crossfade: quick 280ms fade-out before loading and playing next track
+        this.duckVolume(0.01, 280, true);
+        setTimeout(() => {
+          this.audioPlayer.src = track.src;
+          this.audioPlayer.currentTime = 0;
+          this.play();
+          this.restoreVolume(350);
+        }, 300);
       } else {
-        this.updateUI(false);
+        this.audioPlayer.src = track.src;
+        this.audioPlayer.currentTime = 0;
+        if (autoPlay) {
+          this.play();
+        } else {
+          this.updateUI(false);
+        }
       }
     }
 

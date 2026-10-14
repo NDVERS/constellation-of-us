@@ -764,6 +764,43 @@ class SecretPuzzleController {
   }
 
   /**
+   * Downloads original letter image directly to user's device gallery
+   */
+  async downloadOriginalLetter() {
+    const imgUrl = "assets/images/surat-asli-ayumi-keira.webp?v=2";
+    const filename = "Surat-Untuk-Yumi.webp";
+
+    if (window.triggerHaptic) window.triggerHaptic(30);
+
+    try {
+      const response = await fetch(imgUrl);
+      if (!response.ok) throw new Error("Gagal mengambil file gambar.");
+      const blob = await response.blob();
+      const blobUrl = window.URL.createObjectURL(blob);
+
+      const downloadLink = document.createElement("a");
+      downloadLink.href = blobUrl;
+      downloadLink.download = filename;
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+      window.URL.revokeObjectURL(blobUrl);
+
+      this.showToast("Surat berhasil disimpan ke perangkat! 💌");
+    } catch (err) {
+      console.warn("Fetch blob download gagal, mencoba fallback anchor langsung:", err);
+      const fallbackLink = document.createElement("a");
+      fallbackLink.href = imgUrl;
+      fallbackLink.download = filename;
+      fallbackLink.target = "_blank";
+      document.body.appendChild(fallbackLink);
+      fallbackLink.click();
+      document.body.removeChild(fallbackLink);
+      this.showToast("Membuka surat untuk diunduh... 💌");
+    }
+  }
+
+  /**
    * Performs full reset on clues, puzzle slots, solved state, and memory unlocks
    */
   resetPuzzleState() {

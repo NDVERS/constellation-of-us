@@ -20,7 +20,9 @@ const PRECACHE_ASSETS = [
   "./js/modules/secret-puzzle.js",
   "./js/modules/polaroid-modal.js",
   "./js/modules/sidebar.js",
-  "./assets/favicon.svg"
+  "./assets/favicon.svg",
+  "./assets/icons/icon-192.png",
+  "./assets/icons/icon-512.png"
 ];
 
 // Install Event: Pre-cache local assets safely

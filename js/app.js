@@ -822,6 +822,28 @@ class ConstellationApp {
   verifyPuzzle() { this.secretPuzzle.verify(); }
 
   /**
+   * Triggers native PWA install prompt
+   */
+  async promptPwaInstall() {
+    if (!window.deferredPwaPrompt) {
+      if (this.secretPuzzle && typeof this.secretPuzzle.showToast === "function") {
+        this.secretPuzzle.showToast("Buka menu browser titik tiga dan pilih 'Tambahkan ke Layar Utama' 📱");
+      }
+      return;
+    }
+    if (window.triggerHaptic) window.triggerHaptic(25);
+    window.deferredPwaPrompt.prompt();
+    try {
+      const choice = await window.deferredPwaPrompt.userChoice;
+      if (choice && choice.outcome === "accepted") {
+        const banner = document.getElementById("pwa-install-banner");
+        if (banner) banner.classList.add("hidden");
+      }
+    } catch (err) {}
+    window.deferredPwaPrompt = null;
+  }
+
+  /**
    * Global Dev Reset Helper
    * Resets all unlocked memories and collected clues back to initial state
    */
@@ -1125,6 +1147,27 @@ class ConstellationApp {
         }
       });
     }
+
+    // PWA Install Prompt Listener (beforeinstallprompt)
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      window.deferredPwaPrompt = e;
+      const banner = document.getElementById("pwa-install-banner");
+      if (banner) {
+        banner.classList.remove("hidden");
+      }
+    });
+
+    window.addEventListener("appinstalled", () => {
+      window.deferredPwaPrompt = null;
+      const banner = document.getElementById("pwa-install-banner");
+      if (banner) {
+        banner.classList.add("hidden");
+      }
+      if (this.secretPuzzle && typeof this.secretPuzzle.showToast === "function") {
+        this.secretPuzzle.showToast("Aplikasi berhasil dipasang di layar utama! 📱✨");
+      }
+    });
   }
 }
 
