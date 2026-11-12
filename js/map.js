@@ -49,7 +49,7 @@ class MemoryMap {
       minZoom: 11,
       maxZoom: 18,
       updateWhenIdle: true,
-      keepBuffer: 2,
+      keepBuffer: 1,
       attribution: initialAttribution
     }).addTo(this.map);
 

@@ -1221,7 +1221,11 @@ class ConstellationApp {
   }
 }
 
-// Instantiate on DOM Load
-document.addEventListener("DOMContentLoaded", () => {
+// Instantiate on DOM Load or when deferred execution completes
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", () => {
+    window.app = new ConstellationApp();
+  });
+} else {
   window.app = new ConstellationApp();
-});
+}

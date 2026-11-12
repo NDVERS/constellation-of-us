@@ -39,15 +39,20 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&display=swap" />
   </noscript>
 
+  <!-- Preconnect to Map Tile & CDN Domains for Speed -->
+  <link rel="preconnect" href="https://unpkg.com" crossorigin />
+  <link rel="dns-prefetch" href="https://tile.openstreetmap.org" />
+  <link rel="preconnect" href="https://tile.openstreetmap.org" crossorigin />
+
   <!-- Compiled Static Tailwind CSS -->
   <link rel="stylesheet" href="css/tailwind.min.css" />
 
-  <!-- Leaflet.js CSS & JS -->
+  <!-- Leaflet.js CSS & JS (Deferred for non-blocking rendering) -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
 
-  <!-- Lucide Icons CDN -->
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Lucide Icons CDN (Deferred) -->
+  <script src="https://unpkg.com/lucide@latest" defer></script>
 
   <!-- Custom CSS -->
   <link rel="stylesheet" href="css/style.css" />
@@ -143,7 +148,7 @@
   <!-- Chronological Sidebar Panel -->
   <aside 
     id="sidebar" 
-    class="absolute top-20 left-4 right-4 bottom-4 sm:right-auto sm:w-80 md:left-6 md:bottom-6 md:w-96 z-30 flex flex-col overflow-hidden rounded-3xl border border-white/80 glass-panel shadow-2xl"
+    class="sidebar-hidden absolute top-20 left-4 right-4 bottom-4 sm:right-auto sm:w-80 md:left-6 md:bottom-6 md:w-96 z-30 flex flex-col overflow-hidden rounded-3xl border border-white/80 glass-panel shadow-2xl"
   >
     <!-- Sidebar Header -->
     <div class="p-4 md:p-5 border-b border-pink-100/60 bg-white/40">
@@ -1153,14 +1158,14 @@
     </div>
   </div>
 
-  <!-- Application Logic & Modular Scripts -->
-  <script src="js/map.js"></script>
-  <script src="js/modules/rain-fx.js"></script>
-  <script src="js/modules/audio-player.js"></script>
-  <script src="js/modules/secret-puzzle.js"></script>
-  <script src="js/modules/polaroid-modal.js"></script>
-  <script src="js/modules/sidebar.js"></script>
-  <script src="js/app.js"></script>
+  <!-- Application Logic & Modular Scripts (Deferred for optimal FCP & TBT) -->
+  <script src="js/map.js" defer></script>
+  <script src="js/modules/rain-fx.js" defer></script>
+  <script src="js/modules/audio-player.js" defer></script>
+  <script src="js/modules/secret-puzzle.js" defer></script>
+  <script src="js/modules/polaroid-modal.js" defer></script>
+  <script src="js/modules/sidebar.js" defer></script>
+  <script src="js/app.js" defer></script>
 
   <!-- Service Worker Registration for Offline PWA -->
   <script>

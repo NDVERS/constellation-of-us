@@ -82,8 +82,7 @@ class AudioPlayerController {
    */
   init() {
     this.audioPlayer = new Audio();
-    this.audioPlayer.preload = "metadata";
-    this.audioPlayer.src = this.mixtape[this.currentTrackIndex].src;
+    this.audioPlayer.preload = "none";
     this.audioPlayer.loop = false;
     this.audioPlayer.volume = this.userMusicVolume;
 
@@ -457,6 +456,11 @@ class AudioPlayerController {
     }
 
     this.stopSynthesizedBGM();
+
+    const track = this.getCurrentTrack();
+    if (!this.audioPlayer.src || this.audioPlayer.src === "" || this.audioPlayer.src === window.location.href) {
+      this.audioPlayer.src = track.src;
+    }
 
     const playPromise = this.audioPlayer.play();
     if (playPromise !== undefined) {
