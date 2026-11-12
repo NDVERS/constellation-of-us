@@ -666,6 +666,41 @@ class AudioPlayerController {
   }
 
   /**
+   * Plays a retro 8-bit gaming portal sound cue for Samarinda Adventure Hub
+   */
+  playPortalChime() {
+    try {
+      const ctx = this.getAudioContext();
+      if (!ctx) return;
+      if (ctx.state === "suspended") ctx.resume().catch(() => {});
+
+      const now = ctx.currentTime;
+      // 8-bit arpeggio: D4, A4, D5, F#5, A5, D6
+      const freqs = [293.66, 440.0, 587.33, 739.99, 880.0, 1174.66];
+
+      freqs.forEach((freq, idx) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+
+        osc.type = "triangle";
+        osc.frequency.setValueAtTime(freq, now + idx * 0.08);
+
+        gain.gain.setValueAtTime(0.001, now + idx * 0.08);
+        gain.gain.exponentialRampToValueAtTime(0.07, now + idx * 0.08 + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + idx * 0.08 + 0.45);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.start(now + idx * 0.08);
+        osc.stop(now + idx * 0.08 + 0.5);
+      });
+    } catch (e) {
+      // Ignore if Web Audio blocked
+    }
+  }
+
+  /**
    * Warm music swell effect for cinematic reveal
    * @param {Number} peakVolume
    * @param {Number} durationMs

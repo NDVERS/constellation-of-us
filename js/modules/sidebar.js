@@ -124,12 +124,22 @@ const SidebarTemplate = {
 
         <div class="flex flex-wrap items-center justify-center gap-2 mt-3 pt-2.5 border-t border-indigo-100/80">
           <button 
+            id="btn-open-samarinda-portal" 
+            type="button" 
+            onclick="window.app.openSamarindaPortal()" 
+            class="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold text-purple-700 bg-purple-100 hover:bg-purple-200 border border-purple-300/80 rounded-full shadow-xs transition-all active:scale-95 cursor-pointer"
+            title="Buka Portal Misi Menkrep & Roblok Samarinda"
+          >
+            <span class="animate-pulse">🔮</span> Portal Misi Samarinda
+          </button>
+
+          <button 
             id="btn-open-secret-puzzle" 
             type="button" 
             onclick="window.app.openSecretPuzzleModal()" 
             class="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold text-white bg-gradient-to-r from-amber-500 to-rose-500 rounded-full shadow-sm transition-all hover:from-amber-600 hover:to-rose-600 hover:shadow active:scale-95"
           >
-            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> ✦ Rangkai Kata Rahasia
+            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> ✦ Rangkai Kata
           </button>
           
           <span 

@@ -822,6 +822,55 @@ class ConstellationApp {
   verifyPuzzle() { this.secretPuzzle.verify(); }
 
   /**
+   * Opens Samarinda Adventure Portal Modal (Minecraft & Roblox easter egg)
+   */
+  openSamarindaPortal() {
+    const modal = document.getElementById("samarinda-portal-modal");
+    if (!modal) return;
+
+    if (window.triggerHaptic) window.triggerHaptic([40, 50, 40]);
+    if (this.audioPlayer?.playPortalChime) {
+      this.audioPlayer.playPortalChime();
+    }
+    this.spawnPortalParticles();
+
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+    if (window.lucide) lucide.createIcons();
+  }
+
+  /**
+   * Closes Samarinda Adventure Portal Modal
+   */
+  closeSamarindaPortal() {
+    const modal = document.getElementById("samarinda-portal-modal");
+    if (modal) {
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    }
+  }
+
+  /**
+   * Spawns floating amethyst portal particles (Minecraft nether portal visual cue)
+   */
+  spawnPortalParticles() {
+    const colors = ["#a855f7", "#c084fc", "#9333ea", "#d8b4fe", "#ec4899"];
+    const count = 16;
+    for (let i = 0; i < count; i++) {
+      const p = document.createElement("div");
+      p.className = "portal-particle";
+      p.style.left = `${Math.random() * 90 + 5}%`;
+      p.style.bottom = `${Math.random() * 20 + 5}%`;
+      p.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      p.style.animationDelay = `${Math.random() * 0.4}s`;
+      p.style.animationDuration = `${0.8 + Math.random() * 0.8}s`;
+
+      document.body.appendChild(p);
+      setTimeout(() => p.remove(), 1600);
+    }
+  }
+
+  /**
    * Triggers native PWA install prompt
    */
   async promptPwaInstall() {
@@ -1102,6 +1151,7 @@ class ConstellationApp {
         this.closePolaroidModal();
         this.closeQuizModal();
         this.closeSecretPuzzleModal();
+        this.closeSamarindaPortal();
         if (this.audioPlayer && this.audioPlayer.isDrawerOpen) {
           this.audioPlayer.toggleSoundscapeDrawer(false);
         }

@@ -651,6 +651,22 @@ class PolaroidModalController {
       }
     }
 
+    // Toggle Polaroid Download Button (Images only, hidden on video)
+    const downloadBtn = document.getElementById("polaroid-download-btn");
+    if (downloadBtn) {
+      if (isVideo) {
+        downloadBtn.classList.add("hidden");
+      } else {
+        downloadBtn.classList.remove("hidden");
+      }
+    }
+
+    // Auto-scroll modal story content to top on photo switch (UX optimization)
+    const scrollable = document.querySelector("#polaroid-modal .custom-scroll");
+    if (scrollable) {
+      scrollable.scrollTop = 0;
+    }
+
     if (window.lucide) lucide.createIcons();
   }
 
@@ -695,6 +711,197 @@ class PolaroidModalController {
       } catch (e) {}
     }
     this.restoreBgm();
+  }
+
+  /**
+   * Generates and downloads the current active photo as an authentic Polaroid keepsake card
+   */
+  async downloadPolaroidCanvas() {
+    if (this.isVideoCurrent) {
+      if (this.app?.secretPuzzle?.showToast) {
+        this.app.secretPuzzle.showToast("Video tidak bisa diunduh sebagai kartu polaroid bwang :v");
+      }
+      return;
+    }
+
+    const currentItem = this.currentGallery[this.currentGalleryIndex];
+    if (!currentItem) return;
+
+    const photoUrl = typeof currentItem === "object" ? currentItem.url || "" : currentItem || "";
+    const caption = typeof currentItem === "object" ? currentItem.caption || this.currentMemory?.story || "" : this.currentMemory?.story || "";
+    const location = this.currentMemory?.location || this.currentMemory?.title || "Bandung - Cimahi";
+    const date = this.formatDateIndo(this.currentMemory?.date);
+
+    if (window.triggerHaptic) window.triggerHaptic(30);
+    if (this.app?.secretPuzzle?.showToast) {
+      this.app.secretPuzzle.showToast("Memproses kartu polaroid kenangan... 📸");
+    }
+
+    try {
+      // 1. Load image into HTMLImageElement
+      const img = new Image();
+      img.crossOrigin = "anonymous";
+      await new Promise((resolve, reject) => {
+        img.onload = resolve;
+        img.onerror = reject;
+        img.src = photoUrl;
+      });
+
+      // 2. Setup Canvas (1080 x 1420 px - standard high-res polaroid aspect ratio)
+      const canvas = document.createElement("canvas");
+      canvas.width = 1080;
+      canvas.height = 1420;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) throw new Error("Canvas context not available");
+
+      // 3. Draw Polaroid Card Body (Off-white / warm paper texture)
+      ctx.fillStyle = "#faf8f5";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Subtle outer frame border
+      ctx.strokeStyle = "#e7e5e4";
+      ctx.lineWidth = 4;
+      ctx.strokeRect(2, 2, canvas.width - 4, canvas.height - 4);
+
+      // 4. Draw Vintage Washi Tape at Top Center
+      ctx.save();
+      ctx.translate(canvas.width / 2, 45);
+      ctx.rotate((-1.5 * Math.PI) / 180);
+      ctx.fillStyle = "rgba(254, 240, 138, 0.75)";
+      ctx.fillRect(-140, -18, 280, 36);
+      ctx.strokeStyle = "rgba(217, 119, 6, 0.25)";
+      ctx.lineWidth = 1.5;
+      ctx.strokeRect(-140, -18, 280, 36);
+      ctx.restore();
+
+      // 5. Draw Photo Box (x: 70, y: 90, width: 940, height: 940)
+      const photoX = 70;
+      const photoY = 90;
+      const photoSize = 940;
+
+      // Draw photo with aspect-ratio cover crop
+      const imgAspect = img.naturalWidth / img.naturalHeight;
+      let sX = 0, sY = 0, sW = img.naturalWidth, sH = img.naturalHeight;
+      if (imgAspect > 1) {
+        // Wider: crop left and right
+        sW = img.naturalHeight;
+        sX = (img.naturalWidth - sW) / 2;
+      } else {
+        // Taller: crop top and bottom
+        sH = img.naturalWidth;
+        sY = (img.naturalHeight - sH) / 2;
+      }
+
+      ctx.save();
+      // Rounded photo corners
+      ctx.beginPath();
+      if (typeof ctx.roundRect === "function") {
+        ctx.roundRect(photoX, photoY, photoSize, photoSize, 12);
+      } else {
+        ctx.rect(photoX, photoY, photoSize, photoSize);
+      }
+      ctx.clip();
+      ctx.drawImage(img, sX, sY, sW, sH, photoX, photoY, photoSize, photoSize);
+      ctx.restore();
+
+      // Photo frame inner border
+      ctx.strokeStyle = "rgba(0, 0, 0, 0.08)";
+      ctx.lineWidth = 2;
+      ctx.strokeRect(photoX, photoY, photoSize, photoSize);
+
+      // 6. Draw Location & Date Sub-header
+      ctx.fillStyle = "#e11d48"; // Rose-600
+      ctx.font = "bold 26px 'Plus Jakarta Sans', -apple-system, sans-serif";
+      ctx.textAlign = "left";
+      ctx.fillText(`📍 ${location}`, photoX + 10, 1085);
+
+      ctx.textAlign = "right";
+      ctx.fillStyle = "#78716c"; // Stone-500
+      ctx.font = "600 24px 'Plus Jakarta Sans', -apple-system, sans-serif";
+      ctx.fillText(date, photoX + photoSize - 10, 1085);
+
+      // Separator line
+      ctx.strokeStyle = "#e7e5e4";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(photoX + 10, 1105);
+      ctx.lineTo(photoX + photoSize - 10, 1105);
+      ctx.stroke();
+
+      // 7. Draw Handwritten Caption (Caveat with word-wrapping)
+      ctx.fillStyle = "#1c1917"; // Stone-900
+      ctx.font = "600 36px 'Caveat', 'Segoe Script', cursive, sans-serif";
+      ctx.textAlign = "center";
+
+      const cleanCaption = caption.replace(/^["']|["']$/g, "").trim();
+      const maxTextWidth = photoSize - 40;
+      const words = cleanCaption.split(" ");
+      let currentLine = "";
+      const lines = [];
+
+      for (let i = 0; i < words.length; i++) {
+        const testLine = currentLine ? `${currentLine} ${words[i]}` : words[i];
+        const metrics = ctx.measureText(testLine);
+        if (metrics.width > maxTextWidth && i > 0) {
+          lines.push(currentLine);
+          currentLine = words[i];
+        } else {
+          currentLine = testLine;
+        }
+      }
+      if (currentLine) lines.push(currentLine);
+
+      // Draw up to 3 lines nicely spaced
+      const startY = 1155;
+      const lineHeight = 46;
+      lines.slice(0, 3).forEach((line, lIdx) => {
+        ctx.fillText(`"${line}${lIdx === lines.length - 1 || lIdx === 2 ? '"' : ''}`, canvas.width / 2, startY + lIdx * lineHeight);
+      });
+
+      // 8. Watermark Footer
+      ctx.fillStyle = "#a8a29e";
+      ctx.font = "bold 18px 'Plus Jakarta Sans', sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText("✦ CONSTELLATION OF US  •  JEJAK PKL BANDUNG - CIMAHI ✦", canvas.width / 2, 1375);
+
+      // 9. Export to Blob and trigger download
+      canvas.toBlob((blob) => {
+        if (!blob) throw new Error("Gagal mengonversi canvas ke blob.");
+        const blobUrl = URL.createObjectURL(blob);
+        const safeTitle = (this.currentMemory?.title || "Kenangan")
+          .toLowerCase()
+          .replace(/[^a-z0-9]/g, "-")
+          .replace(/-+/g, "-")
+          .replace(/^-|-$/g, "");
+        const filename = `Polaroid-${safeTitle}-${this.currentGalleryIndex + 1}.png`;
+
+        const a = document.createElement("a");
+        a.href = blobUrl;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(blobUrl);
+
+        if (this.app?.secretPuzzle?.showToast) {
+          this.app.secretPuzzle.showToast("Kartu Polaroid berhasil disimpan ke galeri! 📸✨");
+        }
+        if (window.triggerHaptic) window.triggerHaptic([40, 50, 40]);
+      }, "image/png");
+    } catch (err) {
+      console.warn("Gagal membuat kartu polaroid:", err);
+      // Fallback: download raw image directly
+      const a = document.createElement("a");
+      a.href = photoUrl;
+      a.download = `Foto-Kenangan-${this.currentGalleryIndex + 1}.webp`;
+      a.target = "_blank";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      if (this.app?.secretPuzzle?.showToast) {
+        this.app.secretPuzzle.showToast("Foto berhasil diunduh ke galeri! 📸");
+      }
+    }
   }
 
   /**

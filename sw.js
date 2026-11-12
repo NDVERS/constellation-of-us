@@ -4,7 +4,7 @@
  * Features safe Range Request passthrough for videos and background cache resilience.
  */
 
-const CACHE_NAME = "constellation-cache-v7";
+const CACHE_NAME = "constellation-cache-v8";
 
 // Core static assets to pre-cache on install (Lightweight core app shell only - NO heavy audio or gallery photos)
 const PRECACHE_ASSETS = [
